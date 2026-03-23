@@ -68,6 +68,7 @@
     html {
       font-size: 11px;
       scroll-behavior: smooth;
+      background: var(--bg);
     }
 
     body {
@@ -146,7 +147,8 @@
       left: 0;
       right: 0;
       z-index: 100;
-      background: var(--bg);
+      background: rgba(10, 10, 10, 0.9);
+      -webkit-backdrop-filter: blur(4px);
       backdrop-filter: blur(4px);
       border-bottom: 1px solid var(--border);
       padding: 1rem 0;
@@ -154,6 +156,11 @@
       padding-left: env(safe-area-inset-left, 0px);
       padding-right: env(safe-area-inset-right, 0px);
     }
+
+    [data-theme="light"] nav {
+      background: rgba(245, 245, 240, 0.9);
+    }
+
 
     nav .container {
       display: flex;
