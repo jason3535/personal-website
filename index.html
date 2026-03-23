@@ -1388,7 +1388,9 @@
             video.controls = true;
             video.playsInline = true;
             video.preload = 'metadata';
-            video.poster = src + '.png';
+            // Use local poster if available, fallback for CDN videos
+            const filename = src.split('/').pop().split('?')[0];
+            video.poster = src.startsWith('http') ? 'media/' + filename + '.png' : src + '.png';
             gallery.appendChild(video);
           } else {
             const img = document.createElement('img');
@@ -1431,7 +1433,7 @@
 
     function showSkyUIGallery() {
       openModal('SkyUI 1.0 / 2.0', 'gallery', [
-        'media/skyui-demo.mp4',
+        'https://cdn-public.nio.com/www-nio-cn/cms/cms-large-file/default-large-files/1722048050723-F425F853AEC25CED.mp4?20240725',
         'media/system-top-hero-desktop.jpg',
         'media/截屏2026-03-22 下午10.00.56.png'
       ]);
