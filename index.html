@@ -198,19 +198,20 @@
       color: var(--text-dim);
       font-family: var(--font-mono);
       font-size: 1.09rem;
-      padding: 0.3rem 0.7rem;
       cursor: pointer;
       transition: color 0.2s, border-color 0.2s;
       letter-spacing: 1px;
       line-height: 1;
+      width: 3.2rem;
+      height: 2.2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
     }
 
     #themeToggle {
       font-size: 1.36rem;
-      padding: 0.15rem 0.55rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .toggle-btn:hover {
@@ -806,7 +807,7 @@
       </ul>
       <div class="nav-toggles">
         <button class="toggle-btn" id="langToggle" onclick="toggleLang()">EN</button>
-        <button class="toggle-btn" id="themeToggle" onclick="toggleTheme()">☽</button>
+        <button class="toggle-btn" id="themeToggle" onclick="toggleTheme()"><span style="position:relative;left:1px">☀</span></button>
       </div>
     </div>
   </nav>
@@ -1368,7 +1369,7 @@
       const isDark = html.getAttribute('data-theme') !== 'light';
       html.setAttribute('data-theme', isDark ? 'light' : 'dark');
       const btn = document.getElementById('themeToggle');
-      btn.innerHTML = isDark ? '<span style="position:relative;left:1px">☀</span>' : '☽';
+      btn.innerHTML = isDark ? '☽' : '<span style="position:relative;left:1px">☀</span>';
       btn.classList.toggle('active', isDark);
       localStorage.setItem('theme', isDark ? 'light' : 'dark');
     }
@@ -1378,7 +1379,7 @@
       const saved = localStorage.getItem('theme');
       if (saved === 'light') {
         document.documentElement.setAttribute('data-theme', 'light');
-        document.getElementById('themeToggle').innerHTML = '<span style="position:relative;left:1px">☀</span>';
+        document.getElementById('themeToggle').innerHTML = '☽';
         document.getElementById('themeToggle').classList.add('active');
       }
     })();
