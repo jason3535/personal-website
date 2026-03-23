@@ -770,10 +770,8 @@
         padding: 0.25rem 0.5rem;
       }
 
-      .hero-ascii {
-        font-size: 0.55rem;
-        margin-bottom: 2rem;
-      }
+      .hero-ascii { display: none; }
+      .hero-ascii-img { display: block; max-width: 280px; margin-bottom: 2rem; }
     }
 
     /* ═══════════════ FADE-IN ON SCROLL ═══════════════ */
@@ -819,6 +817,16 @@
 ██   ██║██╔══██║╚════██║██║   ██║██║╚██╗██║
 ╚█████╔╝██║  ██║███████║╚██████╔╝██║ ╚████║
  ╚════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝</div>
+      <svg class="hero-ascii-img" viewBox="0 0 460 78" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <text font-family="'Departure Mono','SF Mono','Courier New',monospace" font-size="12" fill="var(--green)" opacity="0.6" xml:space="preserve">
+          <tspan x="0" dy="0">     ██╗ █████╗ ███████╗ ██████╗ ███╗   ██╗</tspan>
+          <tspan x="0" dy="13">     ██║██╔══██╗██╔════╝██╔═══██╗████╗  ██║</tspan>
+          <tspan x="0" dy="13">     ██║███████║███████╗██║   ██║██╔██╗ ██║</tspan>
+          <tspan x="0" dy="13">██   ██║██╔══██║╚════██║██║   ██║██║╚██╗██║</tspan>
+          <tspan x="0" dy="13">╚█████╔╝██║  ██║███████║╚██████╔╝██║ ╚████║</tspan>
+          <tspan x="0" dy="13"> ╚════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝</tspan>
+        </text>
+      </svg>
       <div class="hero-greeting">// Hello World</div>
       <h1 class="hero-name"><span class="scramble" data-text="林正 Jason Lin">林正 Jason Lin</span><span class="cursor"></span></h1>
       <div class="hero-title">Product & Agent Builder</div>
