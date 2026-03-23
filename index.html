@@ -1077,11 +1077,11 @@
             <div class="contact-value">linzheng3535</div>
           </div>
         </a>
-        <a href="https://okjk.co/lCIqAc" class="contact-item" target="_blank">
-          <span class="contact-icon">[J]</span>
+        <a href="https://okjk.co/lCIqAc" class="contact-item" target="_blank" id="jike-linkedin">
+          <span class="contact-icon" id="jike-linkedin-icon">[J]</span>
           <div>
-            <div class="contact-label" data-i18n="contact-jike">即刻</div>
-            <div class="contact-value">林正</div>
+            <div class="contact-label" id="jike-linkedin-label">即刻</div>
+            <div class="contact-value" id="jike-linkedin-value">林正</div>
           </div>
         </a>
         <a href="https://m.douban.com/people/QAZLee/?_i=6761426QwpBEps" class="contact-item" target="_blank">
@@ -1362,6 +1362,23 @@
           el.innerHTML = i18n[currentLang][key];
         }
       });
+
+      // Swap 即刻 / LinkedIn
+      const jl = document.getElementById('jike-linkedin');
+      const jlIcon = document.getElementById('jike-linkedin-icon');
+      const jlLabel = document.getElementById('jike-linkedin-label');
+      const jlValue = document.getElementById('jike-linkedin-value');
+      if (currentLang === 'en') {
+        jl.href = 'https://www.linkedin.com/in/jason-lin-430204a2/';
+        jlIcon.textContent = '[in]';
+        jlLabel.textContent = 'LinkedIn';
+        jlValue.textContent = 'Jason Lin';
+      } else {
+        jl.href = 'https://okjk.co/lCIqAc';
+        jlIcon.textContent = '[J]';
+        jlLabel.textContent = '即刻';
+        jlValue.textContent = '林正';
+      }
     }
 
     // ── Theme Toggle ──
