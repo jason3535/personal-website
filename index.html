@@ -1480,9 +1480,7 @@
             video.controls = true;
             video.playsInline = true;
             video.preload = 'metadata';
-            // Use local poster if available, fallback for CDN videos
-            const filename = src.split('/').pop().split('?')[0];
-            video.poster = src.startsWith('http') ? 'media/' + filename + '.png' : src + '.png';
+            video.poster = src + '.png';
             gallery.appendChild(video);
           } else {
             const img = document.createElement('img');
@@ -1516,8 +1514,8 @@
     // ── Project Galleries ──
     function showNothingGallery() {
       openModal('Nothing OS 4.0 / 4.1', 'gallery', [
-        'media/eN99hRlpvmr7kpSV.mp4',
-        'media/7W3-JQAYC4Z2HxFP.mp4',
+        'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/eN99hRlpvmr7kpSV.mp4',
+        'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/7W3-JQAYC4Z2HxFP.mp4',
         'media/HDn3dk1WwAEXuAm.jpeg',
         'media/截屏2026-03-22 下午10.20.38.png'
       ]);
@@ -1525,7 +1523,7 @@
 
     function showSkyUIGallery() {
       openModal('SkyUI 1.0 / 2.0', 'gallery', [
-        'media/skyui-demo-compressed.mp4',
+        'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/skyui-demo-compressed.mp4',
         'media/system-top-hero-desktop.jpg',
         'media/截屏2026-03-22 下午10.00.56.png'
       ]);
