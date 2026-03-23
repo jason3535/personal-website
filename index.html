@@ -1084,11 +1084,11 @@
             <div class="contact-value" id="jike-linkedin-value">林正</div>
           </div>
         </a>
-        <a href="https://m.douban.com/people/QAZLee/?_i=6761426QwpBEps" class="contact-item" target="_blank">
-          <span class="contact-icon">[D]</span>
+        <a href="https://m.douban.com/people/QAZLee/?_i=6761426QwpBEps" class="contact-item" target="_blank" id="douban-ig">
+          <span class="contact-icon" id="douban-ig-icon">[D]</span>
           <div>
-            <div class="contact-label" data-i18n="contact-douban">豆瓣</div>
-            <div class="contact-value">Jason 林正</div>
+            <div class="contact-label" id="douban-ig-label">豆瓣</div>
+            <div class="contact-value" id="douban-ig-value">Jason 林正</div>
           </div>
         </a>
         <a href="https://github.com/jason3535" class="contact-item" target="_blank">
@@ -1378,6 +1378,23 @@
         jlIcon.textContent = '[J]';
         jlLabel.textContent = '即刻';
         jlValue.textContent = '林正';
+      }
+
+      // Swap 豆瓣 / Instagram
+      const di = document.getElementById('douban-ig');
+      const diIcon = document.getElementById('douban-ig-icon');
+      const diLabel = document.getElementById('douban-ig-label');
+      const diValue = document.getElementById('douban-ig-value');
+      if (currentLang === 'en') {
+        di.href = 'https://www.instagram.com/jasonlin3535/';
+        diIcon.textContent = '[IG]';
+        diLabel.textContent = 'Instagram';
+        diValue.textContent = 'jasonlin3535';
+      } else {
+        di.href = 'https://m.douban.com/people/QAZLee/?_i=6761426QwpBEps';
+        diIcon.textContent = '[D]';
+        diLabel.textContent = '豆瓣';
+        diValue.textContent = 'Jason 林正';
       }
     }
 
