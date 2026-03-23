@@ -798,9 +798,28 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* iOS safe area top cover */
+    .safe-area-cover {
+      display: none;
+    }
+
+    @supports (padding-top: env(safe-area-inset-top)) {
+      .safe-area-cover {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: env(safe-area-inset-top, 0px);
+        background: var(--bg);
+        z-index: 101;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="safe-area-cover"></div>
 
   <!-- ═══════════════ NAV ═══════════════ -->
   <nav>
