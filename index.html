@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>林正 Jason Lin — Product & Agent Builder</title>
   <style>
     @font-face {
@@ -153,6 +153,7 @@
       backdrop-filter: blur(4px);
       border-bottom: 1px solid var(--border);
       padding: 1rem 0;
+      padding-top: calc(env(safe-area-inset-top) + 1rem);
     }
 
     nav .container {
@@ -745,11 +746,6 @@
 
       .contact-grid {
         grid-template-columns: 1fr;
-      }
-
-      nav {
-        background: var(--bg);
-        backdrop-filter: none;
       }
 
       nav .container {
