@@ -431,8 +431,25 @@
       cursor: pointer;
     }
 
+    .project-item::after {
+      content: '→';
+      color: var(--text-dim);
+      font-size: 1.45rem;
+      transition: transform 0.3s, color 0.3s;
+      margin-left: auto;
+    }
+
     .project-item:hover {
       background: var(--bg-alt);
+    }
+
+    .project-item:hover::after {
+      color: var(--green);
+      transform: translateX(4px);
+    }
+
+    .project-item:hover .project-info h3 {
+      color: var(--green);
     }
 
     .project-num {
@@ -444,6 +461,7 @@
     .project-info h3 {
       font-size: 1.45rem;
       color: var(--text);
+      transition: color 0.3s;
       margin-bottom: 0.5rem;
       letter-spacing: 1px;
     }
