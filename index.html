@@ -1515,8 +1515,11 @@
         const video = document.createElement('video');
         video.src = sources;
         video.controls = true;
-        video.autoplay = true;
         video.playsInline = true;
+        video.preload = 'auto';
+        video.poster = sources + '.png';
+        video.style.width = '85vw';
+        video.style.maxHeight = '72vh';
         body.appendChild(video);
       }
 
