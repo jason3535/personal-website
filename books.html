@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>书籍 — 林正 Jason Lin</title>
+  <style>
+    @font-face { font-family: 'Departure Mono'; src: url('https://cdn.jsdelivr.net/gh/rektdeckard/departure-mono@1.420/fonts/DepartureMono-Regular.woff2') format('woff2'); font-weight: normal; font-style: normal; font-display: swap; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --bg: #0a0a0a; --bg-alt: #111111; --text: #e0e0e0; --text-dim: #666666; --green: #00ff41; --green-dim: #00cc33; --green-glow: rgba(0,255,65,0.15); --cyan: #00d4ff; --border: #222222; --border-bright: #333333; --font-mono: 'Departure Mono','SF Mono','Fira Code','Cascadia Code',monospace; --line-height: 1.7; }
+    [data-theme="light"] { --bg: #f5f5f0; --bg-alt: #eaeae5; --text: #1a1a1a; --text-dim: #888888; --green: #007a3d; --green-dim: #005a2d; --green-glow: rgba(0,122,61,0.1); --cyan: #0077b6; --border: #d0d0cb; --border-bright: #b8b8b3; }
+    [data-theme="light"] body::before { background: repeating-linear-gradient(0deg,rgba(0,0,0,0.02) 0px,rgba(0,0,0,0.02) 1px,transparent 1px,transparent 2px); }
+    [data-theme="light"] body::after { background: radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,0.08) 100%); }
+    [data-theme="light"] nav { background: rgba(245,245,240,0.9); }
+    html { font-size: 11px; scroll-behavior: smooth; background: var(--bg); }
+    body { font-family: var(--font-mono); background: var(--bg); color: var(--text); line-height: var(--line-height); font-size: 1.45rem; overflow-x: hidden; position: relative; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg,rgba(0,0,0,0.08) 0px,rgba(0,0,0,0.08) 1px,transparent 1px,transparent 2px); pointer-events: none; z-index: 9999; }
+    body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,0.4) 100%); pointer-events: none; z-index: 9998; }
+    ::selection { background: var(--green); color: var(--bg); }
+    a { color: var(--green); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--cyan); text-shadow: 0 0 8px var(--cyan); }
+    .container { max-width: 770px; margin: 0 auto; padding: 0 2rem; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.9); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); border-bottom: 1px solid var(--border); padding: 1rem 0; padding-top: calc(env(safe-area-inset-top,0px) + 1rem); }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { color: var(--green); font-size: 1.45rem; letter-spacing: 2px; }
+    .nav-logo a { color: var(--green); text-decoration: none; }
+    .nav-logo a:hover { text-shadow: 0 0 8px var(--green-glow); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-dim); font-size: 1.27rem; letter-spacing: 1px; transition: color 0.2s, text-shadow 0.2s; }
+    .nav-links a:hover { color: var(--green); text-shadow: 0 0 8px var(--green-glow); }
+    .nav-toggles { display: flex; gap: 0.5rem; margin-left: 1.5rem; }
+    .toggle-btn { background: none; border: 1px solid var(--border); color: var(--text-dim); font-family: var(--font-mono); font-size: 1.09rem; cursor: pointer; transition: color 0.2s, border-color 0.2s; letter-spacing: 1px; line-height: 1; width: 3.2rem; height: 2.2rem; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
+    #themeToggle { font-size: 1.36rem; }
+    .toggle-btn:hover { color: var(--green); border-color: var(--green); }
+    .toggle-btn.active { color: var(--green); border-color: var(--green); }
+    .page-header { padding-top: 8rem; padding-bottom: 1rem; }
+    .page-title { font-size: 2.5rem; color: var(--text); letter-spacing: 3px; margin-bottom: 1rem; }
+    .page-desc { color: var(--text-dim); font-size: 1.27rem; }
+    .tag-filter { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 2rem 0; }
+    .tag-filter-btn { font-family: var(--font-mono); font-size: 1rem; color: var(--text-dim); border: 1px solid var(--border); background: none; padding: 0.4rem 1rem; cursor: pointer; letter-spacing: 1px; transition: all 0.2s; }
+    .tag-filter-btn:hover { color: var(--green); border-color: var(--green); }
+    .tag-filter-btn.active { color: var(--bg); background: var(--green); border-color: var(--green); }
+    .book-count { color: var(--text-dim); font-size: 1.09rem; margin-bottom: 1rem; opacity: 0.5; }
+    .book-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .book-row { background: var(--bg); padding: 1.2rem 2rem; display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 1rem; text-decoration: none; transition: background 0.3s; }
+    .book-row:hover { background: var(--bg-alt); }
+    .book-row:hover .book-name { color: var(--green); }
+    .book-row.hidden { display: none; }
+    .book-info { display: flex; flex-direction: column; gap: 0.2rem; }
+    .book-name { color: var(--text); font-size: 1.27rem; transition: color 0.3s; letter-spacing: 0.5px; }
+    .book-meta { color: var(--text-dim); font-size: 1rem; display: flex; align-items: center; gap: 0.8rem; }
+    .book-stars { color: var(--green); font-size: 0.91rem; letter-spacing: -1px; }
+    .book-comment { color: var(--text-dim); font-size: 1rem; margin-top: 0.3rem; line-height: 1.5; opacity: 0.7; }
+    .book-right { display: flex; align-items: center; gap: 0.8rem; margin-top: 0.2rem; }
+    .tag { font-size: 1rem; color: var(--text-dim); border: 1px solid var(--border); padding: 0.3rem 0.8rem; letter-spacing: 1px; white-space: nowrap; }
+    .book-date { color: var(--text-dim); font-size: 0.91rem; opacity: 0.5; white-space: nowrap; }
+    .books-douban { margin-top: 2rem; text-align: right; font-size: 1.09rem; }
+    .books-douban a { color: var(--text-dim); transition: color 0.2s; }
+    .books-douban a:hover { color: var(--green); }
+    footer { padding: 4rem 0 2rem; text-align: center; color: var(--text-dim); font-size: 1.09rem; }
+    @media (max-width: 768px) {
+      html { font-size: 10px; }
+      .book-row { padding: 1rem 1.5rem; }
+      nav .container { flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.6rem; order: 3; width: 100%; justify-content: center; padding-top: 0.5rem; border-top: 1px solid var(--border); }
+      .nav-links a { font-size: 1.1rem; }
+      .nav-toggles { margin-left: auto; gap: 0.3rem; }
+    }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    @supports (padding-top: env(safe-area-inset-top)) { .safe-area-cover { display: block; position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top,0px); background: var(--bg); z-index: 101; } }
+  </style>
+</head>
+<body>
+  <div class="safe-area-cover"></div>
+  <nav>
+    <div class="container">
+      <div class="nav-logo"><a href="index.html">~/jason</a></div>
+      <ul class="nav-links">
+        <li><a href="index.html#about">关于</a></li>
+        <li><a href="index.html#projects">项目</a></li>
+        <li><a href="writing.html">文章</a></li>
+        <li><a href="books.html" style="color:var(--green);">书籍</a></li>
+        <li><a href="podcasts.html">播客</a></li>
+        <li><a href="index.html#contact">联系</a></li>
+      </ul>
+      <div class="nav-toggles">
+        <button class="toggle-btn" id="langToggle" onclick="toggleLang()">EN</button>
+        <button class="toggle-btn" id="themeToggle" onclick="toggleTheme()"><span style="position:relative;left:1px">☀</span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title" id="pageTitle">书籍</h1>
+      <p class="page-desc" id="pageDesc">读过的、值得推荐的书。点击跳转豆瓣条目。</p>
+    </div>
+    <div class="tag-filter" id="tagFilter"></div>
+    <div class="book-count" id="bookCount"></div>
+    <div class="fade-in">
+      <div class="book-list" id="bookList"></div>
+    </div>
+    <div class="books-douban">
+      <a href="https://m.douban.com/people/QAZLee/" target="_blank" id="doubanLink">在豆瓣查看更多 ↗</a>
+    </div>
+    <footer>
+      <div>&copy; 2026 Jason Lin · <a href="index.html" style="color:var(--green);">← Back to Home</a></div>
+    </footer>
+  </div>
+  <script>
+    // ── Book Data ──
+    const booksData = [
+  {t:"无穷的开始",a:"David Deutsch",s:4,d:"2025.11",c:"问题是无穷的，问题是能被解决的",tag:"哲学"},
+  {t:"张忠谋自传（下册）",a:"张忠谋",s:5,d:"2024.11",c:"There is a tide in the affairs of men...",tag:"传记"},
+  {t:"张忠谋自传（上册）",a:"张忠谋",s:5,d:"2024.11",c:"终生学习，抓住时代机遇，非常好的传记",tag:"传记"},
+  {t:"Hillbilly Elegy",a:"J.D. Vance",s:4,d:"2024.11",c:"对美国梦有了更真具化的理解",tag:"人文"},
+  {t:"亚洲教父",a:"乔·史塔威尔",s:4,d:"2025.09",c:"有意思的视角",tag:"商业"},
+  {t:"生活的艺术家",a:"李小龙",s:4,d:"2025.08",c:"Be water, my friend",tag:"哲学"},
+  {t:"供应链管理",a:"刘宝红",s:4,d:"2025.08",c:"工具书",tag:"管理"},
+  {t:"少有人走的路",a:"斯科特·派克",s:4,d:"2025.07",c:"",tag:"哲学"},
+  {t:"一个广告人的自白",a:"大卫·奥格威",s:4,d:"2025.07",c:"",tag:"商业"},
+  {t:"源代码：比尔·盖茨自传",a:"比尔·盖茨",s:5,d:"2025.06",c:"It's a marvel of adulthood to realize that when you strip away all the years...",tag:"传记"},
+  {t:"段永平投资问答录（商业逻辑篇）",a:"段永平",s:5,d:"2025.06",c:"经过这两三年实践，理解加深不少",tag:"投资"},
+  {t:"艺术的故事",a:"贡布里希",s:5,d:"2025.04",c:"",tag:"人文"},
+  {t:"溢出：中国制造未来史",a:"施展",s:5,d:"2024.09",c:"施展教授的田野调查为理解越南与工业发展提供了全面的分析框架",tag:"经济"},
+  {t:"小米创业思考",a:"雷军",s:4,d:"2025.01",c:"关于小米模式的深层总结与反思",tag:"商业"},
+  {t:"人类群星闪耀时",a:"茨威格",s:4,d:"2024.12",c:"",tag:"文学"},
+  {t:"大语言模型",a:"赵鑫 等",s:4,d:"2024.11",c:"不错的工具书",tag:"科技"},
+  {t:"思考，快与慢",a:"丹尼尔·卡尼曼",s:4,d:"2024.11",c:"",tag:"思维"},
+  {t:"The Psychology of Money",a:"Morgan Housel",s:4,d:"2024.10",c:"",tag:"投资"},
+  {t:"百岁人生",a:"琳达·格拉顿",s:4,d:"2024.09",c:"做好计划与实验",tag:"生活"},
+  {t:"印尼 Etc.",a:"伊丽莎白·皮萨尼",s:4,d:"2024.09",c:"3.5星，有点碎，得亲身经历才能更具体",tag:"人文"},
+  {t:"我看见的世界：李飞飞自传",a:"李飞飞",s:4,d:"2024.08",c:"何其幸运在世界舞台中央经历了人工智能从无到有",tag:"传记"},
+  {t:"China's Hidden Century",a:"Jessica Harrison-Hall",s:5,d:"2024.08",c:"对晚清的介绍很体系",tag:"历史"},
+  {t:"2022古董拍卖年鉴",a:"欣弘",s:4,d:"2024.08",c:"",tag:"生活"},
+  {t:"臣服实验",a:"迈克·辛格",s:5,d:"2024.07",c:"传奇的经历，试试臣服于生命之流",tag:"哲学"},
+  {t:"脉络：小趋势大势",a:"吴军",s:4,d:"2024.07",c:"人生导师",tag:"科技"},
+  {t:"李诞脱口秀工作手册",a:"李诞",s:3,d:"2024.06",c:"专业领域的专业人",tag:"生活"},
+  {t:"翦商：殷周之变与华夏新生",a:"李硕",s:4,d:"2024.05",c:"角度清奇，改写华夏文明",tag:"历史"},
+  {t:"文学回忆录",a:"木心",s:4,d:"2024.05",c:"木心真的是位通古今，横跨多个领域",tag:"文学"},
+  {t:"鱼不存在",a:"露露·米勒",s:4,d:"2024.04",c:"生命的意义是什么",tag:"人文"},
+  {t:"洞见：从科学到哲学",a:"罗伯特·赖特",s:4,d:"2024.03",c:"佛学与科学的有趣链接",tag:"哲学"},
+  {t:"菊与刀",a:"本尼迪克特",s:4,d:"2024.03",c:"作者没有去过日本",tag:"人文"},
+  {t:"创新公司：皮克斯的启示",a:"艾德·卡特姆",s:4,d:"2024.01",c:"创新类产品不需要一次完对",tag:"管理"},
+  {t:"索尼设计，塑造现代",a:"索尼",s:4,d:"2024.01",c:"",tag:"设计"},
+  {t:"想象的共同体",a:"本尼迪克特·安德森",s:4,d:"2023.12",c:"",tag:"政治"},
+  {t:"建筑的梦想",a:"理查德·罗杰斯",s:5,d:"2023.12",c:"城市规划和软件产品设计其实是相通的",tag:"设计"},
+  {t:"素书",a:"黄石公",s:5,d:"2023.11",c:"知易行难",tag:"哲学"},
+  {t:"悉达多",a:"赫尔曼·黑塞",s:5,d:"2023.11",c:"所有声音、目标、渴望、痛苦…构成世界…生命之河",tag:"文学"},
+  {t:"吴军数学通识讲义",a:"吴军",s:4,d:"2023.11",c:"深入浅出，触类旁通的大师",tag:"科学"},
+  {t:"数学之美",a:"吴军",s:5,d:"2023.10",c:"想起了大学的高数",tag:"科学"},
+  {t:"我与地坛",a:"史铁生",s:5,d:"2023.10",c:"",tag:"文学"},
+  {t:"埃隆·马斯克传",a:"沃尔特·艾萨克森",s:4,d:"2023.09",c:"有点乱，和《乔布斯传》还是有差距的",tag:"传记"},
+  {t:"Make Something Wonderful",a:"Steve Jobs",s:5,d:"2023.09",c:"他把每一款产品和电影都看作向整个世界特殊表达心中深深思慕的一种方式",tag:"传记"},
+  {t:"高效能人士的七个习惯",a:"史蒂芬·柯维",s:4,d:"2023.09",c:"重新思考了在家庭关系上的处理",tag:"管理"},
+  {t:"注定一战",a:"格雷厄姆·艾利森",s:4,d:"2023.08",c:"以史为鉴",tag:"政治"},
+  {t:"纳瓦尔宝典",a:"Eric Jorgenson",s:5,d:"2023.07",c:"里面有很多好的指引，应践行",tag:"思维"},
+  {t:"刷新",a:"萨提亚·纳德拉",s:4,d:"2023.05",c:"会有不一样的感受",tag:"传记"},
+  {t:"Chip War",a:"Chris Miller",s:5,d:"2023.04",c:"芯片高速发展的60年以来国际角力",tag:"科技"},
+  {t:"芯片战争",a:"余盛",s:5,d:"2023.03",c:"芯片高速发展的60年",tag:"科技"},
+  {t:"大英博物馆世界简史",a:"尼尔·麦格雷戈",s:4,d:"2023.02",c:"最近一趟都会翻一翻",tag:"历史"},
+  {t:"建筑的故事",a:"帕特里克·狄龙",s:5,d:"2023.02",c:"",tag:"设计"},
+  {t:"命运",a:"蔡崇达",s:4,d:"2022.12",c:"和《皮囊》的题材有点像",tag:"文学"},
+  {t:"明暗礼赞",a:"谷崎润一郎",s:5,d:"2022.12",c:"",tag:"设计"},
+  {t:"创造",a:"托尼·法德尔",s:4,d:"2022.10",c:"实践 失败 学习…好书推荐！",tag:"产品"},
+  {t:"秋园",a:"杨本芬",s:4,d:"2022.07",c:"被折叠的一段历史",tag:"文学"},
+  {t:"大学之路",a:"吴军",s:5,d:"2022.07",c:"有用",tag:"生活"},
+  {t:"叫魂",a:"孔飞力",s:5,d:"2022.06",c:"",tag:"历史"},
+  {t:"文明之光",a:"吴军",s:5,d:"2022.06",c:"吴老师真是我的人生导师啊",tag:"历史"},
+  {t:"富兰克林自传",a:"富兰克林",s:4,d:"2022.04",c:"",tag:"传记"},
+  {t:"所有工具都是锤子",a:"亚当·萨维奇",s:4,d:"2022.04",c:"",tag:"生活"},
+  {t:"市场推手：纳斯达克CEO自述",a:"罗伯特·格雷费尔德",s:4,d:"2022.03",c:"对纳斯达克多了一些了解",tag:"商业"},
+  {t:"价格游戏",a:"利·考德威尔",s:4,d:"2022.02",c:"精华在前面",tag:"商业"},
+  {t:"刘擎西方现代思想讲义",a:"刘擎",s:5,d:"2022.02",c:"人类群星闪耀时",tag:"哲学"},
+  {t:"冲浪板上的公司",a:"伊冯·乔伊纳德",s:4,d:"2022.01",c:"好公司的价值都是非凡的",tag:"商业"},
+  {t:"置身事内",a:"兰小欢",s:5,d:"2022.01",c:"琢磨中央到地方的政治与经济实际运行",tag:"经济"},
+  {t:"幸福之路",a:"罗素",s:3,d:"2021.11",c:"",tag:"哲学"},
+  {t:"寻路中国",a:"彼得·海斯勒",s:4,d:"2021.11",c:"何伟的三部曲之一，从美国人眼中看中国",tag:"人文"},
+  {t:"刀与星辰",a:"徐皓峰",s:4,d:"2021.12",c:"真厉害，强反应了",tag:"人文"},
+  {t:"江城",a:"彼得·海斯勒",s:5,d:"2021.11",c:"好书，推荐",tag:"人文"},
+  {t:"草平道",a:"塞翁尼·赛翁",s:5,d:"2021.11",c:"牛逼啊，想推荐给所有人",tag:"人文"},
+  {t:"段永平投资问答录（投资逻辑篇）",a:"段永平",s:5,d:"2021.10",c:"大道至简…投资就是一场认识自己的路",tag:"投资"},
+  {t:"巴菲特致股东的信",a:"沃伦·巴菲特",s:5,d:"2021.10",c:"大道至简 金融投资",tag:"投资"},
+  {t:"哲学·科学·常识",a:"陈嘉映",s:4,d:"2021.09",c:"",tag:"哲学"},
+  {t:"美国反对美国",a:"王沪宁",s:5,d:"2021.07",c:"一代代知识分子的文化叩问…国际不忘为国图强",tag:"政治"},
+  {t:"MR.HUA 创业手记",a:"华超",s:4,d:"2021.06",c:"执行力极强",tag:"商业"},
+  {t:"将心注入",a:"霍华德·舒尔茨",s:5,d:"2021.05",c:"",tag:"传记"},
+  {t:"专业投机原理",a:"波涛",s:5,d:"2021.04",c:"三观正",tag:"投资"},
+  {t:"股票作手回忆录",a:"爱德温·勒菲弗",s:4,d:"2021.03",c:"有一百年了…",tag:"投资"},
+  {t:"解密 Instagram",a:"莎拉·弗莱尔",s:5,d:"2020.12",c:"定位是什么？你给用户创造什么价值？",tag:"产品"},
+  {t:"旅行，人生最有价值的投资",a:"吉姆·罗杰斯",s:5,d:"2020.11",c:"趁30多的时候可以停下一段时间",tag:"生活"},
+  {t:"3小时快学期权",a:"上海证券交易所",s:5,d:"2020.10",c:"很好的期权投资入门书",tag:"投资"},
+  {t:"上帝掷骰子吗？",a:"曹天元",s:4,d:"2020.10",c:"",tag:"科学"},
+  {t:"价值",a:"张磊",s:4,d:"2020.09",c:"",tag:"投资"},
+  {t:"曾国藩传",a:"张宏杰",s:4,d:"2020.09",c:"",tag:"传记"},
+  {t:"禅与摩托车维修艺术",a:"波西格",s:4,d:"2020.08",c:"被摩托车旅行的标题吸引进来了",tag:"哲学"},
+  {t:"彼得·林奇的成功投资",a:"彼得·林奇",s:4,d:"2020.07",c:"大道至简",tag:"投资"},
+  {t:"一生的旅程",a:"罗伯特·艾格",s:4,d:"2020.06",c:"看完可以考虑购买迪士尼的股票了",tag:"传记"},
+  {t:"Designed by Apple in California",a:"Apple",s:5,d:"2020.06",c:"",tag:"设计"},
+  {t:"投资中最简单的事",a:"邱国鹭",s:5,d:"2020.06",c:"难得碰到一本校友写的书",tag:"投资"},
+  {t:"文明、现代化、价值投资与中国",a:"李录",s:5,d:"2020.05",c:"【推荐】醍醐灌顶，十分推荐",tag:"投资"},
+  {t:"有限与无限的游戏",a:"詹姆斯·卡斯",s:4,d:"2020.03",c:"人生本来就是一场无限游戏",tag:"哲学"},
+  {t:"管理的实践",a:"德鲁克",s:4,d:"2020.02",c:"管理学的圣经也不为过",tag:"管理"},
+  {t:"沉默的大多数",a:"王小波",s:4,d:"2019.11",c:"这人有点意思",tag:"文学"},
+  {t:"富人思维",a:"贾森·卡拉卡尼斯",s:4,d:"2019.10",c:"一本很好的天使投资入门科普书",tag:"投资"},
+  {t:"领导梯队",a:"拉姆·查兰",s:4,d:"2019.09",c:"宏观地从高纬度视角来看企业组织和人",tag:"管理"},
+  {t:"奈飞文化手册",a:"帕蒂·麦考德",s:4,d:"2019.07",c:"三观正，真知灼见",tag:"管理"},
+  {t:"独裁者手册",a:"梅斯奎塔",s:5,d:"2019.03",c:"牛逼啊",tag:"政治"},
+  {t:"美国大城市的死与生",a:"简·雅各布斯",s:4,d:"2019.01",c:"",tag:"设计"},
+  {t:"中央帝国的财政密码",a:"郭建龙",s:5,d:"2019.01",c:"中国政府在组织架构和多层政策的架构制定中…",tag:"历史"},
+  {t:"计算广告",a:"刘鹏",s:5,d:"2019.01",c:"把ADX类比证券交易系统…",tag:"科技"},
+  {t:"腾讯传",a:"吴晓波",s:4,d:"2019.01",c:"吴晓波文笔不错",tag:"商业"},
+  {t:"态度：吴军家书",a:"吴军",s:4,d:"2018.12",c:"吴军给女儿的家书写得甚重其真",tag:"生活"},
+  {t:"一本书读懂财报",a:"肖星",s:4,d:"2018.11",c:"通俗易懂，适合入门者",tag:"投资"},
+  {t:"金融的逻辑",a:"陈志武",s:4,d:"2018.09",c:"金融对中国传统伦理冲击",tag:"经济"},
+  {t:"城市化转型与土地陷阱",a:"华生",s:3,d:"2018.09",c:"观点有意思",tag:"经济"},
+  {t:"郭鹤年自传",a:"郭鹤年",s:4,d:"2018.09",c:"大道至简，努力践行",tag:"传记"},
+  {t:"认识建筑",a:"丰子恺",s:4,d:"2018.09",c:"一切艺术都是宣传",tag:"设计"},
+  {t:"邓小平时代",a:"傅高义",s:5,d:"2018.08",c:"不争论…强烈推荐！",tag:"传记"},
+  {t:"李光耀观天下",a:"李光耀",s:4,d:"2018.08",c:"修身 齐家 治国 平天下",tag:"政治"},
+  {t:"经济解释",a:"张五常",s:5,d:"2018.06",c:"花了差不多三个月",tag:"经济"},
+  {t:"论美国的民主",a:"托克维尔",s:5,d:"2018.06",c:"民主、自由、平等、贵族专制…",tag:"政治"},
+  {t:"君主论",a:"马基雅维里",s:5,d:"2018.05",c:"#开眼界系列",tag:"政治"},
+  {t:"乡土中国",a:"费孝通",s:4,d:"2018.05",c:"费老的社会学著作还是值得拜读的",tag:"人文"},
+  {t:"自私的皮球",a:"辉格",s:5,d:"2018.04",c:"了不起的作品！",tag:"经济"},
+  {t:"历史的教训",a:"杜兰特",s:4,d:"2018.04",c:"作者对于国家治体制的演进看的较深刻",tag:"历史"},
+  {t:"大国大城",a:"陆铭",s:4,d:"2018.03",c:"城市化进程势不可挡",tag:"经济"},
+  {t:"原则",a:"瑞·达利欧",s:5,d:"2018.02",c:"作者极度理性和自律",tag:"思维"},
+  {t:"自由选择",a:"弗里德曼",s:5,d:"2018.01",c:"强烈",tag:"经济"},
+  {t:"穷查理宝典",a:"Charlie Munger",s:5,d:"2017.09",c:"理性 热爱生活 价值投资…",tag:"投资"},
+  {t:"穷思维 富思维",a:"董大伟",s:4,d:"2017.10",c:"对于更深入了解中国的发展非常有帮助",tag:"经济"},
+  {t:"理性乐观派",a:"马特·里德利",s:4,d:"2017.10",c:"对未来的理性乐观主义",tag:"科学"},
+  {t:"小家，越住越大",a:"逯薇",s:4,d:"2017.08",c:"家嘛，生活的容器！",tag:"生活"},
+  {t:"经济学的思维方式",a:"保罗·海恩",s:4,d:"2017.08",c:"",tag:"经济"},
+  {t:"野蛮生长",a:"冯仑",s:4,d:"2017.07",c:"一代中国民营企业家",tag:"商业"},
+  {t:"菜根谭言",a:"张五常",s:4,d:"2017.07",c:"",tag:"哲学"},
+  {t:"经济学通识",a:"薛兆丰",s:4,d:"2017.07",c:"接地气的入门读物",tag:"经济"},
+  {t:"优势谈判",a:"罗杰·道森",s:5,d:"2017.06",c:"",tag:"商业"},
+  {t:"国民经济学原理",a:"卡尔·门格尔",s:5,d:"2017.06",c:"对经济学的本质原理很好的阐述",tag:"经济"},
+  {t:"中产阶级如何保护自己的财富",a:"yevon_ou",s:4,d:"2017.05",c:"启发很大",tag:"投资"},
+  {t:"一课经济学",a:"亨利·黑兹利特",s:4,d:"2017.05",c:"",tag:"经济"},
+  {t:"勒·柯布西耶全集",a:"勒·柯布西耶",s:4,d:"2017.02",c:"",tag:"设计"},
+  {t:"日本制造",a:"盛田昭夫",s:5,d:"2017.02",c:"一个乐队，畅怀天下",tag:"传记"},
+  {t:"在建筑中发现梦想",a:"安藤忠雄",s:5,d:"2017.01",c:"",tag:"设计"},
+  {t:"成为乔布斯",a:"布伦特·施兰德",s:4,d:"2017.01",c:"",tag:"传记"},
+  {t:"深泽直人",a:"深泽直人",s:4,d:"2016.11",c:"",tag:"设计"},
+  {t:"智能时代",a:"吴军",s:3,d:"2016.09",c:"人工智能的问题可以转化成大数据问题",tag:"科技"},
+  {t:"重新定义公司",a:"施密特",s:4,d:"2016.06",c:"真划时代",tag:"商业"},
+  {t:"柴犬绅士",a:"大卫·弗洛",s:4,d:"2016.04",c:"",tag:"生活"},
+  {t:"MacTalk 跨越边界",a:"池建强",s:4,d:"2016.02",c:"但求好事，莫问前程",tag:"科技"},
+  {t:"硅谷之谜",a:"吴军",s:4,d:"2016.02",c:"醍醐灌顶",tag:"科技"},
+  {t:"富爸爸穷爸爸",a:"罗伯特·清崎",s:5,d:"2015.12",c:"告诉了普通人资产和负债的含义",tag:"投资"},
+  {t:"创业维艰",a:"本·霍洛维茨",s:5,d:"2015.12",c:"CEO是后天磨练出来的",tag:"商业"},
+  {t:"颠覆式创新",a:"李善友",s:4,d:"2015.08",c:"价值网的越迁",tag:"商业"},
+  {t:"人类简史",a:"尤瓦尔·赫拉利",s:4,d:"2015.04",c:"",tag:"历史"},
+  {t:"创新者的解答",a:"克里斯坦森",s:4,d:"2015.04",c:"真知的灯",tag:"商业"},
+  {t:"皮囊",a:"蔡崇达",s:5,d:"2015.04",c:"",tag:"文学"},
+  {t:"创业时，我们在知乎聊什么？",a:"知乎",s:5,d:"2015.03",c:"互联网创业者的圣经",tag:"商业"},
+  {t:"设计中的设计",a:"原研哉",s:5,d:"2015.03",c:"设计是对生活的态度",tag:"设计"},
+  {t:"汽车是怎样跑起来的",a:"御堀直嗣",s:5,d:"2015.03",c:"汽车的科普读物",tag:"科学"},
+  {t:"精益创业",a:"埃里克·莱斯",s:5,d:"2015.03",c:"最小化可行产品",tag:"商业"},
+  {t:"投资最重要的事",a:"霍华德·马克斯",s:5,d:"2015.03",c:"投资入门书",tag:"投资"},
+  {t:"美国种族简史",a:"托马斯·索维尔",s:4,d:"2015.03",c:"深入浅出，让你更好地了解美国",tag:"历史"},
+  {t:"你一定爱读的极简欧洲史",a:"约翰·赫斯特",s:5,d:"2015.02",c:"不错",tag:"历史"},
+  {t:"YC创业营",a:"斯特罗斯",s:4,d:"2015.02",c:"纪录美国创业式的点滴",tag:"商业"},
+  {t:"从0到1",a:"彼得·蒂尔",s:5,d:"2015.02",c:"独立思考，重新认识世界",tag:"商业"},
+  {t:"穿布鞋的马云",a:"王利芬",s:4,d:"2015.02",c:"马云确实是个了不起的企业家",tag:"传记"},
+  {t:"异类",a:"格拉德威尔",s:4,d:"2015.02",c:"成功不是简单的从个人层面上分析",tag:"思维"},
+  {t:"设计心理学",a:"唐纳德·诺曼",s:4,d:"2015.02",c:"设计的入门书",tag:"设计"},
+  {t:"创新者的窘境",a:"克里斯坦森",s:5,d:"2015.01",c:"结构很精细，不可多得的好书",tag:"商业"},
+  {t:"失控",a:"凯文·凯利",s:5,d:"2015.01",c:"kk的境界令人惊叹",tag:"科技"},
+  {t:"腾讯方法",a:"潘东燕",s:3,d:"2015.01",c:"",tag:"产品"},
+  {t:"史蒂夫·乔布斯传",a:"沃尔特·艾萨克森",s:5,d:"2014.11",c:"史诗级的传记",tag:"传记"},
+  {t:"用户体验要素",a:"Jesse James Garrett",s:4,d:"2014.12",c:"产品经理的入门书籍",tag:"产品"},
+  {t:"参与感",a:"黎万强",s:4,d:"2014.12",c:"",tag:"产品"},
+  {t:"九败一胜",a:"李志刚",s:4,d:"2014.12",c:"有很多值得学习的地方",tag:"传记"},
+  {t:"长尾理论",a:"安德森",s:4,d:"2014.11",c:"",tag:"商业"},
+  {t:"周鸿祎自述",a:"周鸿祎",s:4,d:"2014.11",c:"",tag:"传记"},
+  {t:"浪潮之巅",a:"吴军",s:5,d:"2014.03",c:"IT 互联网 商业",tag:"科技"},
+  {t:"我看电商",a:"黄若",s:4,d:"2014.10",c:"",tag:"商业"},
+  {t:"黑天鹅",a:"塔勒布",s:3,d:"2014.10",c:"",tag:"思维"},
+  {t:"人人都是产品经理",a:"苏杰",s:3,d:"2014.10",c:"",tag:"产品"},
+  {t:"结网",a:"王坚",s:4,d:"2014.10",c:"",tag:"产品"},
+  {t:"启示录",a:"Marty Cagan",s:4,d:"2014.10",c:"",tag:"产品"},
+  {t:"乌合之众",a:"勒庞",s:4,d:"2014.10",c:"",tag:"人文"},
+  {t:"时间的往事",a:"翟英杰",s:4,d:"2014.10",c:"",tag:"生活"},
+  {t:"移动的帝国",a:"曾航",s:4,d:"2014.10",c:"",tag:"科技"},
+  {t:"决胜移动终端",a:"查克·马丁",s:4,d:"2014.10",c:"",tag:"科技"},
+  {t:"黑客与画家",a:"Paul Graham",s:4,d:"2014.10",c:"",tag:"科技"},
+  {t:"拒绝平庸",a:"李志斌",s:3,d:"2014.10",c:"",tag:"生活"},
+  {t:"打造Facebook",a:"王淮",s:3,d:"2014.10",c:"",tag:"科技"},
+  {t:"简约至上",a:"Giles Colborne",s:4,d:"2014.10",c:"",tag:"设计"},
+];
+    const allTags = [...new Set(booksData.map(b => b.tag))];
+    const tagOrder = ['传记','商业','投资','经济','政治','历史','科技','设计','人文','哲学','科学','管理','产品','文学','生活','思维'];
+    allTags.sort((a,b) => tagOrder.indexOf(a) - tagOrder.indexOf(b));
+    const filterEl = document.getElementById('tagFilter');
+    filterEl.innerHTML = '<button class="tag-filter-btn active" data-tag="all">全部</button>' + allTags.map(t => '<button class="tag-filter-btn" data-tag="'+t+'">'+t+'</button>').join('');
+    const listEl = document.getElementById('bookList');
+    const stars = n => '★'.repeat(n) + '☆'.repeat(5-n);
+    listEl.innerHTML = booksData.map(function(b) {
+      var h = function(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;};
+      var comment = b.c ? '<div class="book-comment">\u201C' + h(b.c) + '\u201D<\/div>' : '';
+      var url = 'https://search.douban.com/book/subject_search?search_text=' + encodeURIComponent(b.t);
+      return '<a class="book-row" href="' + url + '" target="_blank" data-tag="' + b.tag + '">' +
+        '<div class="book-info"><div class="book-name">' + h(b.t) + '<\/div>' +
+        '<div class="book-meta"><span>' + h(b.a) + '<\/span><span class="book-stars">' + stars(b.s) + '<\/span><\/div>' +
+        comment + '<\/div>' +
+        '<div class="book-right"><span class="book-date">' + b.d + '<\/span><span class="tag">' + b.tag + '<\/span><\/div><\/a>';
+    }).join('');
+    const totalCount = booksData.length;
+    const countEl = document.getElementById('bookCount');
+    let currentLang = 'zh';
+    const updateCount = tag => {
+      const vis = tag === 'all' ? totalCount : booksData.filter(b => b.tag === tag).length;
+      countEl.textContent = tag === 'all' ? (currentLang === 'en' ? totalCount+' books' : '\u5171 '+totalCount+' \u672C') : (currentLang === 'en' ? vis+' of '+totalCount+' books' : vis+' / '+totalCount+' \u672C');
+    };
+    updateCount('all');
+    filterEl.addEventListener('click', e => {
+      const btn = e.target.closest('.tag-filter-btn');
+      if (!btn) return;
+      filterEl.querySelectorAll('.tag-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tag = btn.dataset.tag;
+      listEl.querySelectorAll('.book-row').forEach(row => { row.classList.toggle('hidden', tag !== 'all' && row.dataset.tag !== tag); });
+      updateCount(tag);
+    });
+    document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') !== 'light';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      const btn = document.getElementById('themeToggle');
+      btn.innerHTML = isDark ? '☽' : '<span style="position:relative;left:1px">☀</span>';
+      btn.classList.toggle('active', isDark);
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    }
+    (function() { const saved = localStorage.getItem('theme'); if (saved === 'light') { document.documentElement.setAttribute('data-theme','light'); document.getElementById('themeToggle').innerHTML = '☽'; document.getElementById('themeToggle').classList.add('active'); } })();
+    function toggleLang() {
+      currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      document.getElementById('langToggle').textContent = currentLang === 'zh' ? 'EN' : '\u4E2D';
+      document.getElementById('langToggle').classList.toggle('active', currentLang === 'en');
+      document.getElementById('pageTitle').textContent = currentLang === 'en' ? 'Books' : '\u4E66\u7C4D';
+      document.getElementById('pageDesc').textContent = currentLang === 'en' ? "Books I've read and would recommend. Click to view on Douban." : '\u8BFB\u8FC7\u7684\u3001\u503C\u5F97\u63A8\u8350\u7684\u4E66\u3002\u70B9\u51FB\u8DF3\u8F6C\u8C46\u74E3\u6761\u76EE\u3002';
+      document.getElementById('doubanLink').textContent = currentLang === 'en' ? 'View more on Douban \u2197' : '\u5728\u8C46\u74E3\u67E5\u770B\u66F4\u591A \u2197';
+      updateCount(filterEl.querySelector('.tag-filter-btn.active').dataset.tag);
+    }
+  </script>
+</body>
+</html>

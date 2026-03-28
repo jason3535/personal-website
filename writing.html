@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>文章 — 林正 Jason Lin</title>
+  <style>
+    @font-face {
+      font-family: 'Departure Mono';
+      src: url('https://cdn.jsdelivr.net/gh/rektdeckard/departure-mono@1.420/fonts/DepartureMono-Regular.woff2') format('woff2');
+      font-weight: normal; font-style: normal; font-display: swap;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0a; --bg-alt: #111111; --text: #e0e0e0; --text-dim: #666666;
+      --green: #00ff41; --green-dim: #00cc33; --green-glow: rgba(0, 255, 65, 0.15);
+      --cyan: #00d4ff; --border: #222222; --border-bright: #333333;
+      --font-mono: 'Departure Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      --line-height: 1.7;
+    }
+    [data-theme="light"] {
+      --bg: #f5f5f0; --bg-alt: #eaeae5; --text: #1a1a1a; --text-dim: #888888;
+      --green: #007a3d; --green-dim: #005a2d; --green-glow: rgba(0, 122, 61, 0.1);
+      --cyan: #0077b6; --border: #d0d0cb; --border-bright: #b8b8b3;
+    }
+    [data-theme="light"] body::before { background: repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 2px); }
+    [data-theme="light"] body::after { background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.08) 100%); }
+    [data-theme="light"] nav { background: rgba(245, 245, 240, 0.9); }
+    html { font-size: 11px; scroll-behavior: smooth; background: var(--bg); }
+    body { font-family: var(--font-mono); background: var(--bg); color: var(--text); line-height: var(--line-height); font-size: 1.45rem; overflow-x: hidden; position: relative; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 1px, transparent 1px, transparent 2px); pointer-events: none; z-index: 9999; }
+    body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.4) 100%); pointer-events: none; z-index: 9998; }
+    ::selection { background: var(--green); color: var(--bg); }
+    a { color: var(--green); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--cyan); text-shadow: 0 0 8px var(--cyan); }
+    .container { max-width: 770px; margin: 0 auto; padding: 0 2rem; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10, 10, 10, 0.9); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); border-bottom: 1px solid var(--border); padding: 1rem 0; padding-top: calc(env(safe-area-inset-top, 0px) + 1rem); }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { color: var(--green); font-size: 1.45rem; letter-spacing: 2px; }
+    .nav-logo a { color: var(--green); text-decoration: none; }
+    .nav-logo a:hover { text-shadow: 0 0 8px var(--green-glow); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-dim); font-size: 1.27rem; letter-spacing: 1px; transition: color 0.2s, text-shadow 0.2s; }
+    .nav-links a:hover { color: var(--green); text-shadow: 0 0 8px var(--green-glow); }
+    .nav-toggles { display: flex; gap: 0.5rem; margin-left: 1.5rem; }
+    .toggle-btn { background: none; border: 1px solid var(--border); color: var(--text-dim); font-family: var(--font-mono); font-size: 1.09rem; cursor: pointer; transition: color 0.2s, border-color 0.2s; letter-spacing: 1px; line-height: 1; width: 3.2rem; height: 2.2rem; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
+    #themeToggle { font-size: 1.36rem; }
+    .toggle-btn:hover { color: var(--green); border-color: var(--green); }
+    .toggle-btn.active { color: var(--green); border-color: var(--green); }
+
+    .page-header { padding-top: 8rem; padding-bottom: 1rem; }
+    .page-title { font-size: 2.5rem; color: var(--text); letter-spacing: 3px; margin-bottom: 1rem; }
+    .page-desc { color: var(--text-dim); font-size: 1.27rem; }
+
+    /* ═══════════════ TAG FILTER ═══════════════ */
+    .tag-filter { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 2rem 0; }
+    .tag-filter-btn {
+      font-family: var(--font-mono); font-size: 1rem; color: var(--text-dim);
+      border: 1px solid var(--border); background: none; padding: 0.4rem 1rem;
+      cursor: pointer; letter-spacing: 1px; transition: all 0.2s;
+    }
+    .tag-filter-btn:hover { color: var(--green); border-color: var(--green); }
+    .tag-filter-btn.active { color: var(--bg); background: var(--green); border-color: var(--green); }
+
+    .article-count { color: var(--text-dim); font-size: 1.09rem; margin-bottom: 1rem; opacity: 0.5; }
+
+    .writing-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .writing-item {
+      background: var(--bg); padding: 1.5rem 2rem;
+      display: grid; grid-template-columns: 70px 1fr auto auto;
+      align-items: center; gap: 1.2rem; transition: background 0.3s; text-decoration: none;
+    }
+    .writing-item:hover { background: var(--bg-alt); }
+    .writing-item:hover .writing-title { color: var(--green); }
+    .writing-item.hidden { display: none; }
+    .writing-date { color: var(--text-dim); font-size: 1.09rem; letter-spacing: 1px; }
+    .writing-title { color: var(--text); font-size: 1.27rem; transition: color 0.3s; letter-spacing: 0.5px; }
+    .writing-arrow { color: var(--text-dim); font-size: 1.27rem; opacity: 0; transition: opacity 0.3s; }
+    .writing-item:hover .writing-arrow { opacity: 1; color: var(--green); }
+    .tag { font-size: 1rem; color: var(--text-dim); border: 1px solid var(--border); padding: 0.3rem 0.8rem; letter-spacing: 1px; white-space: nowrap; }
+
+    /* Year divider for time view */
+    .year-divider { padding: 1.5rem 2rem 0.8rem; color: var(--green); font-size: 1.27rem; letter-spacing: 2px; opacity: 0.6; }
+
+    footer { padding: 4rem 0 2rem; text-align: center; color: var(--text-dim); font-size: 1.09rem; }
+
+    @media (max-width: 768px) {
+      html { font-size: 10px; }
+      .writing-item { grid-template-columns: 1fr auto; gap: 0.5rem; }
+      .writing-item .writing-date { grid-column: 1 / -1; }
+      .writing-item .writing-title { grid-column: 1 / -1; }
+      .writing-arrow { display: none; }
+      nav .container { flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.6rem; order: 3; width: 100%; justify-content: center; padding-top: 0.5rem; border-top: 1px solid var(--border); }
+      .nav-links a { font-size: 1.1rem; }
+      .nav-toggles { margin-left: auto; gap: 0.3rem; }
+    }
+
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @supports (padding-top: env(safe-area-inset-top)) {
+      .safe-area-cover { display: block; position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 101; }
+    }
+  </style>
+</head>
+<body>
+  <div class="safe-area-cover"></div>
+  <nav>
+    <div class="container">
+      <div class="nav-logo"><a href="index.html">~/jason</a></div>
+      <ul class="nav-links">
+        <li><a href="index.html#about" data-i18n="nav-about">关于</a></li>
+        <li><a href="index.html#projects" data-i18n="nav-projects">项目</a></li>
+        <li><a href="writing.html" data-i18n="nav-writing" style="color:var(--green);">文章</a></li>
+        <li><a href="books.html" data-i18n="nav-books">书籍</a></li>
+        <li><a href="podcasts.html" data-i18n="nav-podcasts">播客</a></li>
+        <li><a href="index.html#contact" data-i18n="nav-contact">联系</a></li>
+      </ul>
+      <div class="nav-toggles">
+        <button class="toggle-btn" id="langToggle" onclick="toggleLang()">EN</button>
+        <button class="toggle-btn" id="themeToggle" onclick="toggleTheme()"><span style="position:relative;left:1px">☀</span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title" data-i18n="page-title">文章</h1>
+      <p class="page-desc" data-i18n="page-desc">微信公众号「一派人」— 关于 AI 硬件、产品设计与技术趋势的观察与思考。</p>
+    </div>
+
+    <div class="tag-filter" id="tagFilter">
+      <button class="tag-filter-btn active" data-tag="all" data-i18n="filter-all">全部</button>
+      <button class="tag-filter-btn" data-tag="智能硬件" data-i18n="filter-hardware">智能硬件</button>
+      <button class="tag-filter-btn" data-tag="特斯拉" data-i18n="filter-tesla">特斯拉</button>
+      <button class="tag-filter-btn" data-tag="AI" data-i18n="filter-ai">AI</button>
+      <button class="tag-filter-btn" data-tag="工业设计" data-i18n="filter-id">工业设计</button>
+      <button class="tag-filter-btn" data-tag="软件" data-i18n="filter-sw">软件</button>
+      <button class="tag-filter-btn" data-tag="年终总结" data-i18n="filter-review">年终总结</button>
+      <button class="tag-filter-btn" data-tag="苹果" data-i18n="filter-apple">苹果</button>
+      <button class="tag-filter-btn" data-tag="价值投资" data-i18n="filter-invest">价值投资</button>
+      <button class="tag-filter-btn" data-tag="随想" data-i18n="filter-thoughts">随想</button>
+    </div>
+
+    <div class="article-count" id="articleCount">共 36 篇</div>
+
+    <div class="fade-in">
+      <div class="writing-list" id="articleList">
+        <!-- 2026 -->
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/vcSYvYlHAzpN8T8IqnyEeg" target="_blank" data-tag="特斯拉" data-sort="202602">
+          <span class="writing-date">2026.02</span>
+          <span class="writing-title">马斯克的终极工程：为文明打造算力宇宙</span>
+          <span class="tag">特斯拉</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/advMpS3dgENmfYXV6i3mgw" target="_blank" data-tag="特斯拉" data-sort="202602">
+          <span class="writing-date">2026.02</span>
+          <span class="writing-title">湾区特斯拉 FSD v14.2 版本体验</span>
+          <span class="tag">特斯拉</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <!-- 2025 -->
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/4jMspTxkMRLVDdzIAoPxsQ" target="_blank" data-tag="智能硬件" data-sort="202512">
+          <span class="writing-date">2025.12</span>
+          <span class="writing-title">站在 2025 年看 AI 智能硬件</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/cMIAhNZze6gr_ybzXF4i4w" target="_blank" data-tag="年终总结" data-sort="202512">
+          <span class="writing-date">2025.12</span>
+          <span class="writing-title">我的 2025</span>
+          <span class="tag">年终总结</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/4RFn2N0DAD6zHTM7k93SdQ" target="_blank" data-tag="AI" data-sort="202510">
+          <span class="writing-date">2025.10</span>
+          <span class="writing-title">Andrej Karpathy 的非共识</span>
+          <span class="tag">AI</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/SGro0RRP3CglvfBQqoInRw" target="_blank" data-tag="特斯拉" data-sort="202509">
+          <span class="writing-date">2025.09</span>
+          <span class="writing-title">特斯拉第四阶段总体规划</span>
+          <span class="tag">特斯拉</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/OVegC6lc-dCBAoBgN_0jZw" target="_blank" data-tag="智能硬件" data-sort="202508">
+          <span class="writing-date">2025.08</span>
+          <span class="writing-title">极其冷门的随身 AI 设备幻想</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/P6QEvfj6PbbM61oqanW4bA" target="_blank" data-tag="智能硬件" data-sort="202506">
+          <span class="writing-date">2025.06</span>
+          <span class="writing-title">软件与硬件的本质是什么？</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/6LD34GATZ4aTCXXeCW6HAA" target="_blank" data-tag="AI" data-sort="202506">
+          <span class="writing-date">2025.06</span>
+          <span class="writing-title">软件的大变革</span>
+          <span class="tag">AI</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/2VlQOL7Yd1frlsOmfJpGBw" target="_blank" data-tag="智能硬件" data-sort="202505">
+          <span class="writing-date">2025.05</span>
+          <span class="writing-title">AI 硬件产品怎么做？——儿童智能硬件</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/Y2sYzTNkFM-D_Erl43zE3w" target="_blank" data-tag="随想" data-sort="202505">
+          <span class="writing-date">2025.05</span>
+          <span class="writing-title">记录随想｜虎跳在左，雨崩在右</span>
+          <span class="tag">随想</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/mIrj66ieyzMMKybHpU3JDA" target="_blank" data-tag="智能硬件" data-sort="202504">
+          <span class="writing-date">2025.04</span>
+          <span class="writing-title">AI 硬件产品怎么做？——智能摄像设备</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/iD-tOIJAtHglCEUVM1EkoQ" target="_blank" data-tag="智能硬件" data-sort="202503">
+          <span class="writing-date">2025.03</span>
+          <span class="writing-title">AI 硬件产品怎么做？——智能戒指</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/Ll1vlxsPRKFbgF35VCCBmw" target="_blank" data-tag="智能硬件" data-sort="202503">
+          <span class="writing-date">2025.03</span>
+          <span class="writing-title">AI 硬件产品怎么做？——智能体耳机</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/k7ukzONJs9DL5nYVrdCREw" target="_blank" data-tag="智能硬件" data-sort="202503">
+          <span class="writing-date">2025.03</span>
+          <span class="writing-title">AI 硬件产品怎么做？——语音聊天盒子</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/anpY8nd36uns8RG5gJ06Fg" target="_blank" data-tag="特斯拉" data-sort="202503">
+          <span class="writing-date">2025.03</span>
+          <span class="writing-title">特斯拉简析</span>
+          <span class="tag">特斯拉</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/FML88Q4fsw7-6uonVAqdnA" target="_blank" data-tag="智能硬件" data-sort="202502">
+          <span class="writing-date">2025.02</span>
+          <span class="writing-title">AI 硬件产品怎么做？——Meta Ray-Ban 智能眼镜</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/yrVkcJE2o1y7R7OWUV1l_Q" target="_blank" data-tag="AI" data-sort="202502">
+          <span class="writing-date">2025.02</span>
+          <span class="writing-title">AI 硬件产品怎么做？——Rabbit R1</span>
+          <span class="tag">AI</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/IE6Ye7WTfJ9P73w3ToqvzQ" target="_blank" data-tag="智能硬件" data-sort="202502">
+          <span class="writing-date">2025.02</span>
+          <span class="writing-title">AI 硬件产品怎么做？——AI Pin</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/V3kfdaYcRbB7ODtmdmrnUQ" target="_blank" data-tag="工业设计" data-sort="202502">
+          <span class="writing-date">2025.02</span>
+          <span class="writing-title">透明化设计</span>
+          <span class="tag">工业设计</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/V3kfdaYcRbB7ODtmdmrnUQ" target="_blank" data-tag="工业设计" data-sort="202502">
+          <span class="writing-date">2025.02</span>
+          <span class="writing-title">彩色化设计</span>
+          <span class="tag">工业设计</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/A6YQQEP6FtH3TKdUcXI67A" target="_blank" data-tag="工业设计" data-sort="202502">
+          <span class="writing-date">2025.02</span>
+          <span class="writing-title">材质美学设计</span>
+          <span class="tag">工业设计</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/kfvfQYBtWbWrtBy4KLLSaQ" target="_blank" data-tag="AI" data-sort="202501">
+          <span class="writing-date">2025.01</span>
+          <span class="writing-title">不懂代码如何开发微信小程序</span>
+          <span class="tag">AI</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <!-- 2024 -->
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/Ld41L-tRsjK3nRSxHCM4Kw" target="_blank" data-tag="特斯拉" data-sort="202412">
+          <span class="writing-date">2024.12</span>
+          <span class="writing-title">人形机器人简析</span>
+          <span class="tag">特斯拉</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/5ezL3cmex-UI4c_LIPSAOg" target="_blank" data-tag="年终总结" data-sort="202412">
+          <span class="writing-date">2024.12</span>
+          <span class="writing-title">2024｜书、影视、应用工具</span>
+          <span class="tag">年终总结</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/JEbmZcxSeFE2RtTxHsxSeg" target="_blank" data-tag="特斯拉" data-sort="202410">
+          <span class="writing-date">2024.10</span>
+          <span class="writing-title">再谈特斯拉的十年战略规划</span>
+          <span class="tag">特斯拉</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/6U0bRpkXpaejv-sfPXZ_Qg" target="_blank" data-tag="软件" data-sort="202408">
+          <span class="writing-date">2024.08</span>
+          <span class="writing-title">移动设备 OS 的前世今生</span>
+          <span class="tag">软件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <!-- 2023 -->
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/f2qW_2m8tpHS51dPPrjuXQ" target="_blank" data-tag="年终总结" data-sort="202312">
+          <span class="writing-date">2023.12</span>
+          <span class="writing-title">2023｜书、影视、应用工具</span>
+          <span class="tag">年终总结</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/I29DGQF-dXTNSvCYjXyGPw" target="_blank" data-tag="智能硬件" data-sort="202303">
+          <span class="writing-date">2023.03</span>
+          <span class="writing-title">Apple XR 大猜想</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <!-- 2022 -->
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/bi8eZDJmRzXg8m_LjPz9KA" target="_blank" data-tag="年终总结" data-sort="202212">
+          <span class="writing-date">2022.12</span>
+          <span class="writing-title">2022｜书和影视</span>
+          <span class="tag">年终总结</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/oC4rEClnd446OKYgklMWkw" target="_blank" data-tag="智能硬件" data-sort="202201">
+          <span class="writing-date">2022.01</span>
+          <span class="writing-title">从 VR 和 AR 的过去看未来</span>
+          <span class="tag">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <!-- 2021 -->
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/NJtRxMmTRqDViMpcnfRbGw" target="_blank" data-tag="年终总结" data-sort="202112">
+          <span class="writing-date">2021.12</span>
+          <span class="writing-title">2021｜书和影视</span>
+          <span class="tag">年终总结</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/_6QohyPB_45eRLafKknCdg" target="_blank" data-tag="苹果" data-sort="202112">
+          <span class="writing-date">2021.12</span>
+          <span class="writing-title">推演｜苹果会怎么造车？</span>
+          <span class="tag">苹果</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/OmNShr9NdpsYgU81tihiIg" target="_blank" data-tag="特斯拉" data-sort="202102">
+          <span class="writing-date">2021.02</span>
+          <span class="writing-title">特斯拉的十年战略规划</span>
+          <span class="tag">特斯拉</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <!-- 2020 -->
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/B9j2Uap2yXuXYr4Nt4rXqw" target="_blank" data-tag="价值投资" data-sort="202008">
+          <span class="writing-date">2020.08</span>
+          <span class="writing-title">为什么是拼多多？</span>
+          <span class="tag">价值投资</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/OJJsA0_r-j7TTwMoBBSdrA" target="_blank" data-tag="价值投资" data-sort="202005">
+          <span class="writing-date">2020.05</span>
+          <span class="writing-title">查理·芒格华裔合伙人的价值投资哲学</span>
+          <span class="tag">价值投资</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      <div>&copy; 2026 Jason Lin · <a href="index.html" style="color:var(--green);">← Back to Home</a></div>
+    </footer>
+  </div>
+
+  <script>
+    // ── Fade-in ──
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => observer.observe(el));
+
+    // ── Tag Filter ──
+    const filterBtns = document.querySelectorAll('.tag-filter-btn');
+    const articles = document.querySelectorAll('.writing-item');
+    const countEl = document.getElementById('articleCount');
+    const totalCount = articles.length;
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const tag = btn.dataset.tag;
+        let visible = 0;
+        articles.forEach(a => {
+          if (tag === 'all' || a.dataset.tag === tag) {
+            a.classList.remove('hidden');
+            visible++;
+          } else {
+            a.classList.add('hidden');
+          }
+        });
+        countEl.textContent = tag === 'all'
+          ? (currentLang === 'en' ? `${totalCount} articles` : `共 ${totalCount} 篇`)
+          : (currentLang === 'en' ? `${visible} of ${totalCount} articles` : `${visible} / ${totalCount} 篇`);
+      });
+    });
+
+    // ── Theme ──
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') !== 'light';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      const btn = document.getElementById('themeToggle');
+      btn.innerHTML = isDark ? '☽' : '<span style="position:relative;left:1px">☀</span>';
+      btn.classList.toggle('active', isDark);
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    }
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        document.getElementById('themeToggle').innerHTML = '☽';
+        document.getElementById('themeToggle').classList.add('active');
+      }
+    })();
+
+    // ── i18n ──
+    const i18n = {
+      en: {
+        'nav-about': 'About', 'nav-projects': 'Projects', 'nav-writing': 'Writing', 'nav-books': 'Books', 'nav-podcasts': 'Podcasts', 'nav-contact': 'Contact',
+        'page-title': 'Writing',
+        'page-desc': 'WeChat blog "一派人" — observations on AI hardware, product design, and tech trends.',
+        'filter-all': 'All', 'filter-hardware': 'AI Hardware', 'filter-tesla': 'Tesla', 'filter-musk': 'Musk',
+        'filter-ai': 'AI', 'filter-id': 'Industrial Design', 'filter-sw': 'Software',
+        'filter-review': 'Year in Review', 'filter-apple': 'Apple', 'filter-invest': 'Value Investing', 'filter-thoughts': 'Thoughts',
+      },
+      zh: {
+        'nav-about': '关于', 'nav-projects': '项目', 'nav-writing': '文章', 'nav-books': '书籍', 'nav-podcasts': '播客', 'nav-contact': '联系',
+        'page-title': '文章',
+        'page-desc': '微信公众号「一派人」— 关于 AI 硬件、产品设计与技术趋势的观察与思考。',
+        'filter-all': '全部', 'filter-hardware': '智能硬件', 'filter-tesla': '特斯拉', 'filter-musk': '马斯克',
+        'filter-ai': 'AI', 'filter-id': '工业设计', 'filter-sw': '软件',
+        'filter-review': '年终总结', 'filter-apple': '苹果', 'filter-invest': '价值投资', 'filter-thoughts': '随想',
+      }
+    };
+
+    let currentLang = 'zh';
+
+    function toggleLang() {
+      currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      const btn = document.getElementById('langToggle');
+      btn.textContent = currentLang === 'zh' ? 'EN' : '中';
+      btn.classList.toggle('active', currentLang === 'en');
+      document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (i18n[currentLang][key]) el.innerHTML = i18n[currentLang][key];
+      });
+      // Update count text
+      const activeTag = document.querySelector('.tag-filter-btn.active').dataset.tag;
+      const visibleCount = document.querySelectorAll('.writing-item:not(.hidden)').length;
+      countEl.textContent = activeTag === 'all'
+        ? (currentLang === 'en' ? `${totalCount} articles` : `共 ${totalCount} 篇`)
+        : (currentLang === 'en' ? `${visibleCount} of ${totalCount} articles` : `${visibleCount} / ${totalCount} 篇`);
+    }
+  </script>
+</body>
+</html>

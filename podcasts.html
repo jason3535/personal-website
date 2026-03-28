@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>播客 — 林正 Jason Lin</title>
+  <style>
+    @font-face { font-family: 'Departure Mono'; src: url('https://cdn.jsdelivr.net/gh/rektdeckard/departure-mono@1.420/fonts/DepartureMono-Regular.woff2') format('woff2'); font-weight: normal; font-style: normal; font-display: swap; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --bg: #0a0a0a; --bg-alt: #111111; --text: #e0e0e0; --text-dim: #666666; --green: #00ff41; --green-dim: #00cc33; --green-glow: rgba(0,255,65,0.15); --cyan: #00d4ff; --border: #222222; --border-bright: #333333; --font-mono: 'Departure Mono','SF Mono','Fira Code','Cascadia Code',monospace; --line-height: 1.7; }
+    [data-theme="light"] { --bg: #f5f5f0; --bg-alt: #eaeae5; --text: #1a1a1a; --text-dim: #888888; --green: #007a3d; --green-dim: #005a2d; --green-glow: rgba(0,122,61,0.1); --cyan: #0077b6; --border: #d0d0cb; --border-bright: #b8b8b3; }
+    [data-theme="light"] body::before { background: repeating-linear-gradient(0deg,rgba(0,0,0,0.02) 0px,rgba(0,0,0,0.02) 1px,transparent 1px,transparent 2px); }
+    [data-theme="light"] body::after { background: radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,0.08) 100%); }
+    [data-theme="light"] nav { background: rgba(245,245,240,0.9); }
+    html { font-size: 11px; scroll-behavior: smooth; background: var(--bg); }
+    body { font-family: var(--font-mono); background: var(--bg); color: var(--text); line-height: var(--line-height); font-size: 1.45rem; overflow-x: hidden; position: relative; }
+    body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg,rgba(0,0,0,0.08) 0px,rgba(0,0,0,0.08) 1px,transparent 1px,transparent 2px); pointer-events: none; z-index: 9999; }
+    body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,0.4) 100%); pointer-events: none; z-index: 9998; }
+    ::selection { background: var(--green); color: var(--bg); }
+    a { color: var(--green); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--cyan); text-shadow: 0 0 8px var(--cyan); }
+    .container { max-width: 770px; margin: 0 auto; padding: 0 2rem; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,10,0.9); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); border-bottom: 1px solid var(--border); padding: 1rem 0; padding-top: calc(env(safe-area-inset-top,0px) + 1rem); }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { color: var(--green); font-size: 1.45rem; letter-spacing: 2px; }
+    .nav-logo a { color: var(--green); text-decoration: none; }
+    .nav-logo a:hover { text-shadow: 0 0 8px var(--green-glow); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--text-dim); font-size: 1.27rem; letter-spacing: 1px; transition: color 0.2s, text-shadow 0.2s; }
+    .nav-links a:hover { color: var(--green); text-shadow: 0 0 8px var(--green-glow); }
+    .nav-toggles { display: flex; gap: 0.5rem; margin-left: 1.5rem; }
+    .toggle-btn { background: none; border: 1px solid var(--border); color: var(--text-dim); font-family: var(--font-mono); font-size: 1.09rem; cursor: pointer; transition: color 0.2s, border-color 0.2s; letter-spacing: 1px; line-height: 1; width: 3.2rem; height: 2.2rem; display: inline-flex; align-items: center; justify-content: center; padding: 0; }
+    #themeToggle { font-size: 1.36rem; }
+    .toggle-btn:hover { color: var(--green); border-color: var(--green); }
+    .toggle-btn.active { color: var(--green); border-color: var(--green); }
+    .page-header { padding-top: 8rem; padding-bottom: 2rem; }
+    .page-title { font-size: 2.5rem; color: var(--text); letter-spacing: 3px; margin-bottom: 1rem; }
+    .page-desc { color: var(--text-dim); font-size: 1.27rem; }
+    .podcast-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-bottom: 3rem; }
+    .podcast-item { background: var(--bg); padding: 2rem; display: flex; align-items: flex-start; gap: 1.5rem; text-decoration: none; transition: background 0.3s; }
+    .podcast-item:hover { background: var(--bg-alt); }
+    .podcast-item:hover .podcast-title { color: var(--green); }
+    .podcast-icon { color: var(--green); font-size: 1.09rem; flex-shrink: 0; width: 2.8rem; height: 2.8rem; border: 1px solid var(--border-bright); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: border-color 0.3s; }
+    .podcast-item:hover .podcast-icon { border-color: var(--green); }
+    .podcast-info { display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+    .podcast-title { color: var(--text); font-size: 1.45rem; letter-spacing: 0.5px; transition: color 0.3s; line-height: 1.5; }
+    .podcast-desc { color: var(--text-dim); font-size: 1.09rem; line-height: 1.7; opacity: 0.7; }
+    .podcast-meta { display: flex; align-items: center; gap: 0.5rem; color: var(--text-dim); font-size: 1rem; }
+    .podcast-dot { opacity: 0.4; }
+    footer { padding: 4rem 0 2rem; text-align: center; color: var(--text-dim); font-size: 1.09rem; }
+    @media (max-width: 768px) {
+      html { font-size: 10px; }
+      .podcast-title { font-size: 1.27rem; }
+      nav .container { flex-wrap: wrap; gap: 0.5rem; }
+      .nav-links { gap: 0.6rem; order: 3; width: 100%; justify-content: center; padding-top: 0.5rem; border-top: 1px solid var(--border); }
+      .nav-links a { font-size: 1.1rem; }
+      .nav-toggles { margin-left: auto; gap: 0.3rem; }
+    }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    @supports (padding-top: env(safe-area-inset-top)) { .safe-area-cover { display: block; position: fixed; top: 0; left: 0; right: 0; height: env(safe-area-inset-top,0px); background: var(--bg); z-index: 101; } }
+  </style>
+</head>
+<body>
+  <div class="safe-area-cover"></div>
+  <nav>
+    <div class="container">
+      <div class="nav-logo"><a href="index.html">~/jason</a></div>
+      <ul class="nav-links">
+        <li><a href="index.html#about">关于</a></li>
+        <li><a href="index.html#projects">项目</a></li>
+        <li><a href="writing.html">文章</a></li>
+        <li><a href="books.html">书籍</a></li>
+        <li><a href="podcasts.html" style="color:var(--green);">播客</a></li>
+        <li><a href="index.html#contact">联系</a></li>
+      </ul>
+      <div class="nav-toggles">
+        <button class="toggle-btn" id="langToggle" onclick="toggleLang()">EN</button>
+        <button class="toggle-btn" id="themeToggle" onclick="toggleTheme()"><span style="position:relative;left:1px">☀</span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title" id="pageTitle">播客</h1>
+      <p class="page-desc" id="pageDesc">「万悟智连」— 聊产品、聊技术、聊 AI 时代的新事物。</p>
+    </div>
+
+    <div class="podcast-list fade-in">
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/69636dd7e235ea65bc40570a" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP13 我们的2025：AI、好奇心与我们正在选择的人生</div>
+          <div class="podcast-desc">以2025年年终回顾为切入，探讨AI在个人与工作中的角色演变、好奇心作为长期竞争力的价值，以及价值观在技术选择中的重要性。一场关于技术、人生与内在秩序的诚实对话。</div>
+          <div class="podcast-meta"><span>101 min</span><span class="podcast-dot">·</span><span>2026.01</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/68f8c0a601567203218c7002" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP12 张忠谋人物传</div>
+          <div class="podcast-desc">深入探讨台积电创办人张忠谋的传奇人生，从德州仪器的积累到创办台积电，如何通过终身学习和热爱事业构建成功路径，在时代浪潮中精准把握机遇。</div>
+          <div class="podcast-meta"><span>42 min</span><span class="podcast-dot">·</span><span>2025.10</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/68ca80dba56ca3e0c4e4eea9" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP11 2025 苹果秋季发布会</div>
+          <div class="podcast-desc">分析 AirPods Pro 3 心率检测、Apple Watch Ultra 3 升级、iPhone 17 系列工艺优化，以及 iPhone Air 超薄设计。从乔布斯名言出发解读苹果产品设计本质。</div>
+          <div class="podcast-meta"><span>67 min</span><span class="podcast-dot">·</span><span>2025.09</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/68b9b70997178f08ee5048ea" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP10 蔚小理与追思 iPod</div>
+          <div class="podcast-desc">分析寒武纪股价超越茅台背后的资本逻辑，比较理想i8与乐道L90的定位差异，回顾iPod创新历程，探讨乔布斯与库克时代的产品理念差别。</div>
+          <div class="podcast-meta"><span>72 min</span><span class="podcast-dot">·</span><span>2025.09</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/6862ab05bef90978ecb08adf" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP9 苹果的新UI、基座模型框架与生态展望</div>
+          <div class="podcast-desc">探讨 WWDC 25 的 Liquid Glass UI 设计语言与 Foundation Model Framework，分析苹果将大型语言模型下沉到设备端的生态意义，回溯苹果三代UI演进史。</div>
+          <div class="podcast-meta"><span>84 min</span><span class="podcast-dot">·</span><span>2025.07</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/6835d4d238dcc57c64449b85" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP8 微软 BUILD、Google I/O 25 与 WWDC 25 的展望</div>
+          <div class="podcast-desc">深入讨论微软Build的平台生态战略、Google I/O的全栈自研能力，聚焦Agent元年与MCP/A2A协议，展望WWDC 25苹果是否会推出自家AI基础模型。</div>
+          <div class="podcast-meta"><span>72 min</span><span class="podcast-dot">·</span><span>2025.05</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/67e0cb30dd11f9c8c1a9535a" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP8 儿童智能硬件与 Agent</div>
+          <div class="podcast-desc">探讨儿童智能硬件赛道的产品逻辑与AI Agent在儿童教育场景中的应用潜力。</div>
+          <div class="podcast-meta"><span>74 min</span><span class="podcast-dot">·</span><span>2025.03</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/67975709247d51713c92791b" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP7 我们的2024：我们心中的年度书籍、工具与学习心得</div>
+          <div class="podcast-desc">年终特辑，分享2024年度最佳书籍、效率工具与个人成长心得。</div>
+          <div class="podcast-meta"><span>159 min</span><span class="podcast-dot">·</span><span>2025.01</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/67483dabc3b2a2f3341e9fcb" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP6 特斯拉 Robotaxi 与马斯克的执念</div>
+          <div class="podcast-desc">讨论特斯拉Robotaxi发布会的两极化评价，从会场布置、Master Plan和马斯克政治活动等角度切入，探讨这位技术领袖看似反常行为背后的真实动机。</div>
+          <div class="podcast-meta"><span>50 min</span><span class="podcast-dot">·</span><span>2024.11</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/67de21a1dd11f9c8c14d253a" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP5 Meta Orion 和他的兄弟及竞对们</div>
+          <div class="podcast-desc">分析Meta Orion AR眼镜及其竞争格局，探讨AR智能眼镜赛道的产品形态演进。</div>
+          <div class="podcast-meta"><span>44 min</span><span class="podcast-dot">·</span><span>2024.10</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/67de2567dd11f9c8c14dde6a" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP4 老罗细红线新品猜测</div>
+          <div class="podcast-desc">围绕罗永浩细红线品牌新品展开猜测与讨论。</div>
+          <div class="podcast-meta"><span>78 min</span><span class="podcast-dot">·</span><span>2024.09</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/67de1f6d78103db3bd1bd0a6" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP3 Ray-Ban Meta 智能眼镜与 AI 智能硬件</div>
+          <div class="podcast-desc">深入体验和分析Ray-Ban Meta智能眼镜，探讨AI智能硬件的产品逻辑与未来趋势。</div>
+          <div class="podcast-meta"><span>139 min</span><span class="podcast-dot">·</span><span>2024.08</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/67de1cf978103db3bd1b7174" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP2 Apple Intelligence</div>
+          <div class="podcast-desc">解读苹果WWDC发布的Apple Intelligence，探讨苹果在AI领域的战略布局与端侧智能的未来。</div>
+          <div class="podcast-meta"><span>68 min</span><span class="podcast-dot">·</span><span>2024.07</span></div>
+        </div>
+      </a>
+      <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/666c04d5c26e396a36c583f2" target="_blank">
+        <div class="podcast-icon">&#9654;</div>
+        <div class="podcast-info">
+          <div class="podcast-title">EP1 智能座舱、深漂与职业倦怠</div>
+          <div class="podcast-desc">首期节目。从新能源汽车的竞争维度聊到智能座舱的屏幕体验，探讨车企毛利困境和自动驾驶前景，以及从厦门到深圳的职业历程与倦怠反思。</div>
+          <div class="podcast-meta"><span>75 min</span><span class="podcast-dot">·</span><span>2024.06</span></div>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      <div>&copy; 2026 Jason Lin · <a href="index.html" style="color:var(--green);">← Back to Home</a></div>
+    </footer>
+  </div>
+
+  <script>
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    fadeEls.forEach(el => observer.observe(el));
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.getAttribute('data-theme') !== 'light';
+      html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      const btn = document.getElementById('themeToggle');
+      btn.innerHTML = isDark ? '☽' : '<span style="position:relative;left:1px">☀</span>';
+      btn.classList.toggle('active', isDark);
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    }
+    (function() { const saved = localStorage.getItem('theme'); if (saved === 'light') { document.documentElement.setAttribute('data-theme','light'); document.getElementById('themeToggle').innerHTML = '☽'; document.getElementById('themeToggle').classList.add('active'); } })();
+    let currentLang = 'zh';
+    function toggleLang() {
+      currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      document.getElementById('langToggle').textContent = currentLang === 'zh' ? 'EN' : '\u4E2D';
+      document.getElementById('langToggle').classList.toggle('active', currentLang === 'en');
+      document.getElementById('pageTitle').textContent = currentLang === 'en' ? 'Podcasts' : '\u64AD\u5BA2';
+      document.getElementById('pageDesc').textContent = currentLang === 'en' ? '"Wanwu Zhilian" \u2014 Conversations about product, technology, and new things in the AI era.' : '\u300C\u4E07\u609F\u667A\u8FDE\u300D\u2014 \u804A\u4EA7\u54C1\u3001\u804A\u6280\u672F\u3001\u804A AI \u65F6\u4EE3\u7684\u65B0\u4E8B\u7269\u3002';
+    }
+  </script>
+</body>
+</html>

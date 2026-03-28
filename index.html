@@ -174,6 +174,15 @@
       letter-spacing: 2px;
     }
 
+    .nav-logo a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    .nav-logo a:hover {
+      text-shadow: 0 0 8px var(--green-glow);
+    }
+
     .nav-links {
       display: flex;
       gap: 2rem;
@@ -366,6 +375,61 @@
       color: var(--green);
     }
 
+    /* ═══════════════ JOURNEY (compact timeline) ═══════════════ */
+    .about-journey {
+      margin-top: 3rem;
+      border: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+    }
+
+    .journey-label {
+      color: var(--text-dim);
+      font-size: 1.09rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .journey-line {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .journey-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .journey-year {
+      color: var(--text-dim);
+      font-size: 1rem;
+    }
+
+    .journey-co {
+      color: var(--text);
+      font-size: 1.27rem;
+      letter-spacing: 1px;
+    }
+
+    .journey-node.active .journey-co {
+      color: var(--green);
+    }
+
+    .journey-role {
+      margin-top: 0.4rem;
+      font-size: 0.91rem;
+      white-space: nowrap;
+    }
+
+    .journey-arrow {
+      color: var(--border-bright);
+      font-size: 1.45rem;
+      margin-top: 0.8rem;
+    }
+
     /* ═══════════════ SKILLS ═══════════════ */
     .skills-grid {
       display: grid;
@@ -525,6 +589,211 @@
       color: var(--text-dim);
       font-size: 1.09rem;
       line-height: 1.8;
+    }
+
+    /* ═══════════════ WRITING ═══════════════ */
+    .writing-source {
+      color: var(--text-dim);
+      font-size: 1.09rem;
+      margin-bottom: 1.5rem;
+      opacity: 0.5;
+    }
+
+    .writing-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .writing-item {
+      background: var(--bg);
+      padding: 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: 90px 1fr auto auto;
+      align-items: center;
+      gap: 1.5rem;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+
+    .writing-item:hover {
+      background: var(--bg-alt);
+    }
+
+    .writing-item:hover .writing-title {
+      color: var(--green);
+    }
+
+    .writing-date {
+      color: var(--text-dim);
+      font-size: 1.09rem;
+      letter-spacing: 1px;
+    }
+
+    .writing-title {
+      color: var(--text);
+      font-size: 1.27rem;
+      transition: color 0.3s;
+      letter-spacing: 0.5px;
+    }
+
+    .writing-arrow {
+      color: var(--text-dim);
+      font-size: 1.27rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .writing-item:hover .writing-arrow {
+      opacity: 1;
+      color: var(--green);
+    }
+
+    /* ═══════════════ BOOKS ═══════════════ */
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .book-item {
+      background: var(--bg);
+      padding: 1.5rem;
+      text-decoration: none;
+      transition: background 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .book-item:hover {
+      background: var(--bg-alt);
+    }
+
+    .book-item:hover .book-title {
+      color: var(--green);
+    }
+
+    .book-cover {
+      width: 90px;
+      height: 128px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+
+    .book-item:hover .book-cover {
+      border-color: var(--green);
+    }
+
+    .book-title {
+      color: var(--text);
+      font-size: 1.18rem;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .book-author {
+      color: var(--text-dim);
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .book-tag {
+      margin-top: 0.2rem;
+    }
+
+    .section-more {
+      margin-top: 1.5rem;
+      text-align: right;
+      font-size: 1.09rem;
+    }
+
+    .section-more a {
+      color: var(--text-dim);
+      transition: color 0.2s;
+    }
+
+    .section-more a:hover {
+      color: var(--green);
+    }
+
+    /* ═══════════════ PODCASTS ═══════════════ */
+    .podcast-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .podcast-item {
+      background: var(--bg);
+      padding: 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .podcast-item:hover {
+      background: var(--bg-alt);
+    }
+
+    .podcast-item:hover .podcast-title {
+      color: var(--green);
+    }
+
+    .podcast-icon {
+      color: var(--green);
+      font-size: 1.09rem;
+      flex-shrink: 0;
+      width: 2.4rem;
+      height: 2.4rem;
+      border: 1px solid var(--border-bright);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s;
+    }
+
+    .podcast-item:hover .podcast-icon {
+      border-color: var(--green);
+    }
+
+    .podcast-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .podcast-title {
+      color: var(--text);
+      font-size: 1.27rem;
+      letter-spacing: 0.5px;
+      transition: color 0.3s;
+      line-height: 1.5;
+    }
+
+    .podcast-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-dim);
+      font-size: 1rem;
+    }
+
+    .podcast-dot {
+      opacity: 0.4;
     }
 
     /* ═══════════════ CONTACT ═══════════════ */
@@ -751,12 +1020,45 @@
         grid-template-columns: 1fr;
       }
 
+      .journey-line {
+        gap: 0.6rem;
+      }
+
+      .journey-arrow {
+        font-size: 1.2rem;
+      }
+
       .project-item {
         grid-template-columns: 1fr;
         gap: 1rem;
       }
 
       .project-num { display: none; }
+
+      .writing-item {
+        grid-template-columns: 1fr auto;
+        gap: 0.5rem;
+      }
+
+      .writing-item .writing-date {
+        grid-column: 1 / -1;
+      }
+
+      .writing-item .writing-title {
+        grid-column: 1 / -1;
+      }
+
+      .writing-arrow {
+        display: none;
+      }
+
+      .books-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .podcast-grid {
+        grid-template-columns: 1fr;
+      }
 
       .contact-grid {
         grid-template-columns: 1fr;
@@ -832,12 +1134,13 @@
   <!-- ═══════════════ NAV ═══════════════ -->
   <nav>
     <div class="container">
-      <div class="nav-logo">~/jason</div>
+      <div class="nav-logo"><a href="index.html">~/jason</a></div>
       <ul class="nav-links">
         <li><a href="#about" data-i18n="nav-about">关于</a></li>
-        <li><a href="#skills" data-i18n="nav-skills">技能</a></li>
         <li><a href="#projects" data-i18n="nav-projects">项目</a></li>
-        <li><a href="#experience" data-i18n="nav-exp">经历</a></li>
+        <li><a href="#writing" data-i18n="nav-writing">文章</a></li>
+        <li><a href="#books" data-i18n="nav-books">书籍</a></li>
+        <li><a href="#podcasts" data-i18n="nav-podcasts">播客</a></li>
         <li><a href="#contact" data-i18n="nav-contact">联系</a></li>
       </ul>
       <div class="nav-toggles">
@@ -910,57 +1213,39 @@
             <span class="stat-value">Nothing</span>
           </div>
           <div class="stat-item">
-            <span class="stat-label">Background</span>
-            <span class="stat-value">Meitu → OPPO → NIO</span>
-          </div>
-          <div class="stat-item">
             <span class="stat-label">Status</span>
             <span class="stat-value">Online <span class="cursor" style="width:0.4em;height:0.8em;"></span></span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ═══════════════ SKILLS ═══════════════ -->
-  <section id="skills" class="fade-in">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-index">02</span>
-        <h2 class="section-title" data-i18n="section-skills">技能</h2>
-        <div class="section-line"></div>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-icon">&#9654;</div>
-          <div class="skill-name" data-i18n="skill-1-name">Product</div>
-          <div class="skill-desc" data-i18n="skill-1-desc">10+ 年软件产品经验，经历从移动互联网到 AI 时代完整周期。热爱硬件，动手做过一些硬件项目。</div>
-          <div class="skill-tags">
-            <span class="tag">Strategy</span>
-            <span class="tag">Mobile OS</span>
-            <span class="tag">AI Product</span>
-            <span class="tag">Hardware</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon">&#9670;</div>
-          <div class="skill-name" data-i18n="skill-2-name">Design</div>
-          <div class="skill-desc" data-i18n="skill-2-desc">对建筑与工业设计有持续的关注和审美积累，擅长将跨领域的设计直觉转化为软件产品的体验语言。</div>
-          <div class="skill-tags">
-            <span class="tag">UI / UX</span>
-            <span class="tag">Architecture</span>
-            <span class="tag">Industrial</span>
-          </div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon">&#9783;</div>
-          <div class="skill-name" data-i18n="skill-3-name">Engineering</div>
-          <div class="skill-desc" data-i18n="skill-3-desc">前端、后端、App、Web、小程序均有实战经验。AI 时代加持下，已基本实现全栈自主开发。</div>
-          <div class="skill-tags">
-            <span class="tag">Full Stack</span>
-            <span class="tag">AI Coding</span>
-            <span class="tag">App / Web ...</span>
-          </div>
+      <!-- Journey: compact timeline -->
+      <div class="about-journey">
+        <div class="journey-label">$ history</div>
+        <div class="journey-line">
+          <span class="journey-node">
+            <span class="journey-year">2015</span>
+            <span class="journey-co" data-i18n="exp-4-company">美图</span>
+            <span class="journey-role tag" data-i18n="journey-role-meitu">MEIOS & 商业化</span>
+          </span>
+          <span class="journey-arrow">→</span>
+          <span class="journey-node">
+            <span class="journey-year">2019</span>
+            <span class="journey-co">OPPO</span>
+            <span class="journey-role tag" data-i18n="journey-role-oppo">ColorOS 多媒体产品负责人</span>
+          </span>
+          <span class="journey-arrow">→</span>
+          <span class="journey-node">
+            <span class="journey-year">2022</span>
+            <span class="journey-co" data-i18n="exp-2-company">蔚来</span>
+            <span class="journey-role tag" data-i18n="journey-role-nio">SkyUI 产品负责人</span>
+          </span>
+          <span class="journey-arrow">→</span>
+          <span class="journey-node active">
+            <span class="journey-year">2025</span>
+            <span class="journey-co">Nothing</span>
+            <span class="journey-role tag" data-i18n="journey-role-nothing">NothingOS 产品负责人</span>
+          </span>
         </div>
       </div>
     </div>
@@ -970,7 +1255,7 @@
   <section id="projects" class="fade-in">
     <div class="container">
       <div class="section-header">
-        <span class="section-index">03</span>
+        <span class="section-index">02</span>
         <h2 class="section-title" data-i18n="section-projects">近期项目</h2>
         <div class="section-line"></div>
       </div>
@@ -999,20 +1284,8 @@
             <span class="tag">Person</span>
           </div>
         </div>
-        <div class="project-item" onclick="window.open('https://mp.weixin.qq.com/s/k7ukzONJs9DL5nYVrdCREw','_blank')">
-          <div class="project-num">03</div>
-          <div class="project-info">
-            <h3 data-i18n="proj-1-title">AI 智能硬件观察 2024—2025</h3>
-            <p data-i18n="proj-1-desc">公众号「一派人」系列文章。覆盖 AI Pin、Rabbit、智能眼镜、AI 耳机、智能戒指、AI 摄像设备等品类，分析各类 AI 硬件的产品现状与未来趋势。</p>
-          </div>
-          <div class="project-tags">
-            <span class="tag">AI Hardware</span>
-            <span class="tag">7 Articles</span>
-            <span class="tag">Person</span>
-          </div>
-        </div>
         <div class="project-item" onclick="openModal('AI 智能硬件概念设计', 'video', 'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/ai-hardware-concept.mp4')">
-          <div class="project-num">04</div>
+          <div class="project-num">03</div>
           <div class="project-info">
             <h3 data-i18n="proj-hw-concept-title">AI 智能硬件概念设计</h3>
             <p data-i18n="proj-hw-concept-desc">YY 的一些有意思的硬件产品概念设计。</p>
@@ -1024,7 +1297,7 @@
           </div>
         </div>
         <div class="project-item" onclick="showSkyUIGallery()">
-          <div class="project-num">05</div>
+          <div class="project-num">04</div>
           <div class="project-info">
             <h3 data-i18n="proj-skyui-title">SkyUI 1.0 / 2.0</h3>
             <p data-i18n="proj-skyui-desc">主导 SkyUI 各版本产品规划设计，打造最纯净、车机互联体验最好的系统。</p>
@@ -1039,56 +1312,223 @@
     </div>
   </section>
 
-  <!-- ═══════════════ EXPERIENCE ═══════════════ -->
-  <section id="experience" class="fade-in">
+  <!-- ═══════════════ WRITING ═══════════════ -->
+  <section id="writing" class="fade-in">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-index">03</span>
+        <h2 class="section-title" data-i18n="section-writing">文章</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="writing-source" data-i18n="writing-source">选自微信公众号「一派人」</div>
+      <div class="writing-list">
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/4jMspTxkMRLVDdzIAoPxsQ" target="_blank">
+          <span class="writing-date">2025.12</span>
+          <span class="writing-title" data-i18n="article-5-title">站在 2025 年看 AI 智能硬件</span>
+          <span class="tag" data-i18n="tag-hardware">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/mIrj66ieyzMMKybHpU3JDA" target="_blank">
+          <span class="writing-date">2025.04</span>
+          <span class="writing-title" data-i18n="article-1-title">AI 硬件产品怎么做？——智能摄像设备</span>
+          <span class="tag" data-i18n="tag-hardware">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/iD-tOIJAtHglCEUVM1EkoQ" target="_blank">
+          <span class="writing-date">2025.03</span>
+          <span class="writing-title" data-i18n="article-2-title">AI 硬件产品怎么做？——智能戒指</span>
+          <span class="tag" data-i18n="tag-hardware">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/Ll1vlxsPRKFbgF35VCCBmw" target="_blank">
+          <span class="writing-date">2025.03</span>
+          <span class="writing-title" data-i18n="article-3-title">AI 硬件产品怎么做？——智能体耳机</span>
+          <span class="tag" data-i18n="tag-hardware">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/k7ukzONJs9DL5nYVrdCREw" target="_blank">
+          <span class="writing-date">2025.03</span>
+          <span class="writing-title" data-i18n="article-4-title">AI 硬件产品怎么做？——语音聊天盒子</span>
+          <span class="tag" data-i18n="tag-hardware">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/SGro0RRP3CglvfBQqoInRw" target="_blank">
+          <span class="writing-date">2025.09</span>
+          <span class="writing-title" data-i18n="article-6-title">特斯拉第四阶段总体规划</span>
+          <span class="tag" data-i18n="tag-tesla">特斯拉</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/JEbmZcxSeFE2RtTxHsxSeg" target="_blank">
+          <span class="writing-date">2024.10</span>
+          <span class="writing-title" data-i18n="article-7-title">再谈特斯拉的十年战略规划</span>
+          <span class="tag" data-i18n="tag-tesla">特斯拉</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/6U0bRpkXpaejv-sfPXZ_Qg" target="_blank">
+          <span class="writing-date">2024.08</span>
+          <span class="writing-title" data-i18n="article-8-title">移动设备 OS 的前世今生</span>
+          <span class="tag" data-i18n="tag-software">软件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/V3kfdaYcRbB7ODtmdmrnUQ" target="_blank">
+          <span class="writing-date">2025.02</span>
+          <span class="writing-title" data-i18n="article-9-title">透明化设计</span>
+          <span class="tag" data-i18n="tag-id">工业设计</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/V3kfdaYcRbB7ODtmdmrnUQ" target="_blank">
+          <span class="writing-date">2025.02</span>
+          <span class="writing-title" data-i18n="article-10-title">彩色化设计</span>
+          <span class="tag" data-i18n="tag-id">工业设计</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+      </div>
+      <div class="section-more">
+        <a href="writing.html" data-i18n="writing-more">查看全部文章 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ BOOKS ═══════════════ -->
+  <section id="books" class="fade-in">
     <div class="container">
       <div class="section-header">
         <span class="section-index">04</span>
-        <h2 class="section-title" data-i18n="section-experience">经历</h2>
+        <h2 class="section-title" data-i18n="section-books">书籍</h2>
         <div class="section-line"></div>
       </div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-year">2025 — Present</div>
-          <div class="timeline-role">Nothing</div>
-          <div class="timeline-company" data-i18n="exp-1-role">NothingOS 产品负责人</div>
-          <div class="timeline-desc" data-i18n="exp-1-desc">
-            负责 NothingOS 产品方向与体验定义。
+      <div class="books-grid">
+        <a class="book-item" href="https://book.douban.com/subject/6798611/" target="_blank">
+          <img class="book-cover" src="media/books/steve-jobs.jpg" alt="史蒂夫·乔布斯传">
+          <div class="book-title">史蒂夫·乔布斯传</div>
+          <div class="book-author">Walter Isaacson</div>
+          <div class="book-tag tag">传记</div>
+        </a>
+        <a class="book-item" href="https://book.douban.com/subject/20424526/" target="_blank">
+          <img class="book-cover" src="media/books/deng-xiaoping.jpg" alt="邓小平时代">
+          <div class="book-title">邓小平时代</div>
+          <div class="book-author">Ezra Vogel</div>
+          <div class="book-tag tag">传记</div>
+        </a>
+        <a class="book-item" href="https://book.douban.com/subject/26831789/" target="_blank">
+          <img class="book-cover" src="media/books/poor-charlie.jpg" alt="穷查理宝典">
+          <div class="book-title">穷查理宝典</div>
+          <div class="book-author">Charlie Munger</div>
+          <div class="book-tag tag">商业</div>
+        </a>
+        <a class="book-item" href="https://book.douban.com/subject/1047609/" target="_blank">
+          <img class="book-cover" src="media/books/morris-chang.jpg" alt="张忠谋自传">
+          <div class="book-title">张忠谋自传</div>
+          <div class="book-author">张忠谋</div>
+          <div class="book-tag tag">传记</div>
+        </a>
+        <a class="book-item" href="https://book.douban.com/subject/25881102/" target="_blank">
+          <img class="book-cover" src="media/books/dictators-handbook.jpg" alt="独裁者手册">
+          <div class="book-title">独裁者手册</div>
+          <div class="book-author">B. de Mesquita</div>
+          <div class="book-tag tag">政治</div>
+        </a>
+        <a class="book-item" href="https://book.douban.com/subject/1418776/" target="_blank">
+          <img class="book-cover" src="media/books/america-vs-america.jpg" alt="美国反对美国">
+          <div class="book-title">美国反对美国</div>
+          <div class="book-author">王沪宁</div>
+          <div class="book-tag tag">政治</div>
+        </a>
+        <a class="book-item" href="https://book.douban.com/subject/6556332/" target="_blank">
+          <img class="book-cover" src="media/books/travel-investment.jpg" alt="旅行：人生最有价值的投资">
+          <div class="book-title">旅行：人生最有价值的投资</div>
+          <div class="book-author">Jim Rogers</div>
+          <div class="book-tag tag">商业</div>
+        </a>
+        <a class="book-item" href="https://book.douban.com/subject/24745513/" target="_blank">
+          <img class="book-cover" src="media/books/free-to-choose.jpg" alt="自由选择">
+          <div class="book-title">自由选择</div>
+          <div class="book-author">Milton Friedman</div>
+          <div class="book-tag tag">经济</div>
+        </a>
+        <a class="book-item" href="https://book.douban.com/subject/27616695/" target="_blank">
+          <img class="book-cover" src="media/books/robert-kuok.jpg" alt="郭鹤年自传">
+          <div class="book-title">郭鹤年自传</div>
+          <div class="book-author">郭鹤年</div>
+          <div class="book-tag tag">传记</div>
+        </a>
+        <a class="book-item" href="https://book.douban.com/subject/33477229/" target="_blank">
+          <img class="book-cover" src="media/books/god-plays-dice.jpg" alt="上帝掷骰子吗？">
+          <div class="book-title">上帝掷骰子吗？</div>
+          <div class="book-author">曹天元</div>
+          <div class="book-tag tag">科学</div>
+        </a>
+      </div>
+      <div class="section-more">
+        <a href="books.html" data-i18n="books-more">查看全部书籍 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PODCASTS ═══════════════ -->
+  <section id="podcasts" class="fade-in">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-index">05</span>
+        <h2 class="section-title" data-i18n="section-podcasts">播客</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="podcast-grid">
+        <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/69636dd7e235ea65bc40570a" target="_blank">
+          <div class="podcast-icon">&#9654;</div>
+          <div class="podcast-info">
+            <div class="podcast-title">EP13 我们的2025：AI、好奇心与我们正在选择的人生</div>
+            <div class="podcast-meta">
+              <span>一派人</span>
+              <span class="podcast-dot">·</span>
+              <span>101 min</span>
+              <span class="podcast-dot">·</span>
+              <span>2026.01</span>
+            </div>
           </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2022 — 2025</div>
-          <div class="timeline-role" data-i18n="exp-2-company">蔚来</div>
-          <div class="timeline-company" data-i18n="exp-2-role">手机 SkyUI 产品负责人</div>
-          <div class="timeline-desc" data-i18n="exp-2-desc">
-            负责蔚来手机 SkyUI 产品规划与体验设计，
-            打造原生车手互联生态的系统级体验。
+        </a>
+        <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/68f8c0a601567203218c7002" target="_blank">
+          <div class="podcast-icon">&#9654;</div>
+          <div class="podcast-info">
+            <div class="podcast-title">EP12 张忠谋人物传</div>
+            <div class="podcast-meta">
+              <span>一派人</span>
+              <span class="podcast-dot">·</span>
+              <span>42 min</span>
+              <span class="podcast-dot">·</span>
+              <span>2025.10</span>
+            </div>
           </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2019 — 2022</div>
-          <div class="timeline-role">OPPO</div>
-          <div class="timeline-company" data-i18n="exp-3-role">ColorOS 多媒体产品负责人</div>
-          <div class="timeline-desc" data-i18n="exp-3-desc">
-            主导 ColorOS 多媒体模块产品规划，
-            覆盖相册、音视频、屏显、虚拟形象等核心体验。
+        </a>
+        <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/68ca80dba56ca3e0c4e4eea9" target="_blank">
+          <div class="podcast-icon">&#9654;</div>
+          <div class="podcast-info">
+            <div class="podcast-title">EP11 2025 苹果秋季发布会</div>
+            <div class="podcast-meta">
+              <span>一派人</span>
+              <span class="podcast-dot">·</span>
+              <span>67 min</span>
+              <span class="podcast-dot">·</span>
+              <span>2025.09</span>
+            </div>
           </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2015 — 2019</div>
-          <div class="timeline-role" data-i18n="exp-4-company">美图</div>
-          <div class="timeline-company" data-i18n="exp-4-role">MEIOS & 商业化早期建构</div>
-          <div class="timeline-desc" data-i18n="exp-4-desc">
-            参与美图手机 MEIOS 系统产品建设，
-            推动商业化模式的早期探索与落地。
+        </a>
+        <a class="podcast-item" href="https://www.xiaoyuzhoufm.com/episode/68b9b70997178f08ee5048ea" target="_blank">
+          <div class="podcast-icon">&#9654;</div>
+          <div class="podcast-info">
+            <div class="podcast-title">EP10 蔚小理与追思 iPod</div>
+            <div class="podcast-meta">
+              <span>一派人</span>
+              <span class="podcast-dot">·</span>
+              <span>72 min</span>
+              <span class="podcast-dot">·</span>
+              <span>2025.09</span>
+            </div>
           </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2011 — 2015</div>
-          <div class="timeline-role" data-i18n="exp-5-company">厦门大学</div>
-          <div class="timeline-company" data-i18n="exp-5-role">电气工程及其自动化</div>
-          <div class="timeline-desc"></div>
-        </div>
+        </a>
+      </div>
+      <div class="section-more">
+        <a href="podcasts.html" data-i18n="podcasts-more">查看全部播客 →</a>
       </div>
     </div>
   </section>
@@ -1097,7 +1537,7 @@
   <section id="contact" class="fade-in">
     <div class="container">
       <div class="section-header">
-        <span class="section-index">05</span>
+        <span class="section-index">06</span>
         <h2 class="section-title" data-i18n="section-contact">联系</h2>
         <div class="section-line"></div>
       </div>
@@ -1342,6 +1782,59 @@
         'exp-4-role': 'MEIOS & Early Commercialization',
         'exp-4-desc': 'Built Meitu Phone MEIOS system products and drove early commercialization exploration.',
         'exp-5-role': 'Electrical Engineering & Automation',
+        'journey-role-meitu': 'MEIOS & Commercialization',
+        'journey-role-oppo': 'Multimedia Product Lead',
+        'journey-role-nio': 'SkyUI Product Lead',
+        'journey-role-nothing': 'NothingOS Product Lead',
+        'nav-writing': 'Writing',
+        'nav-books': 'Books',
+        'section-writing': 'Writing',
+        'section-books': 'Books',
+        'writing-source': 'Selected from WeChat blog "一派人"',
+        'article-1-title': 'How to Build AI Hardware? — Smart Cameras',
+        'article-2-title': 'How to Build AI Hardware? — Smart Rings',
+        'article-3-title': 'How to Build AI Hardware? — AI Agent Earbuds',
+        'article-4-title': 'How to Build AI Hardware? — Voice Chat Box',
+        'article-5-title': 'AI Smart Hardware: A 2025 Perspective',
+        'article-6-title': 'Tesla\'s Master Plan Part 4',
+        'article-7-title': 'Revisiting Tesla\'s 10-Year Strategy',
+        'article-8-title': 'The History of Mobile OS',
+        'article-9-title': 'Transparent Design',
+        'article-10-title': 'Colorful Design',
+        'tag-hardware': 'AI Hardware',
+        'tag-tesla': 'Tesla',
+        'tag-software': 'Software',
+        'tag-id': 'Industrial Design',
+        'writing-more': 'View all articles →',
+        'book-1-title': 'The Innovator\'s Dilemma',
+        'book-1-tag': 'Business',
+        'book-2-title': 'Steve Jobs',
+        'book-2-tag': 'Biography',
+        'book-3-title': 'Chip War',
+        'book-3-tag': 'Tech',
+        'book-4-title': 'Designing Design',
+        'book-4-tag': 'Design',
+        'book-4-author': 'Kenya Hara',
+        'book-5-title': 'The Almanack of Naval Ravikant',
+        'book-5-tag': 'Thinking',
+        'book-6-title': 'Sapiens',
+        'book-6-tag': 'Humanity',
+        'book-7-title': 'Hackers & Painters',
+        'book-7-tag': 'Tech',
+        'book-8-title': 'The Presentation Secrets of Steve Jobs',
+        'book-8-tag': 'Business',
+        'books-more': 'View all books →',
+        'nav-podcasts': 'Podcasts',
+        'section-podcasts': 'Podcasts',
+        'pod-1-title': 'AI Hardware in 2025: Who\'s Building, Who\'s Using?',
+        'pod-1-host': '一派人',
+        'pod-2-title': 'On-Device AI: A PM\'s Perspective on What\'s Next',
+        'pod-2-host': '一派人',
+        'pod-3-title': 'Is There Still Room for Innovation in Phone OS?',
+        'pod-3-host': '一派人',
+        'pod-4-title': 'From NIO to Nothing: My Product Methodology',
+        'pod-4-host': '一派人',
+        'podcasts-more': 'View all podcasts →',
         'contact-wechat': 'WeChat',
         'contact-jike': 'Jike',
         'contact-douban': 'Douban',
@@ -1390,6 +1883,59 @@
         'exp-4-role': 'MEIOS & 商业化早期建构',
         'exp-4-desc': '参与美图手机 MEIOS 系统产品建设，推动商业化模式的早期探索与落地。',
         'exp-5-role': '电气工程及其自动化',
+        'journey-role-meitu': 'MEIOS & 商业化',
+        'journey-role-oppo': 'ColorOS 多媒体产品负责人',
+        'journey-role-nio': 'SkyUI 产品负责人',
+        'journey-role-nothing': 'NothingOS 产品负责人',
+        'nav-writing': '文章',
+        'nav-books': '书籍',
+        'section-writing': '文章',
+        'section-books': '书籍',
+        'writing-source': '选自微信公众号「一派人」',
+        'article-1-title': 'AI 硬件产品怎么做？——智能摄像设备',
+        'article-2-title': 'AI 硬件产品怎么做？——智能戒指',
+        'article-3-title': 'AI 硬件产品怎么做？——智能体耳机',
+        'article-4-title': 'AI 硬件产品怎么做？——语音聊天盒子',
+        'article-5-title': '站在 2025 年看 AI 智能硬件',
+        'article-6-title': '特斯拉第四阶段总体规划',
+        'article-7-title': '再谈特斯拉的十年战略规划',
+        'article-8-title': '移动设备 OS 的前世今生',
+        'article-9-title': '透明化设计',
+        'article-10-title': '彩色化设计',
+        'tag-hardware': '智能硬件',
+        'tag-tesla': '特斯拉',
+        'tag-software': '软件',
+        'tag-id': '工业设计',
+        'writing-more': '查看全部文章 →',
+        'book-1-title': '创新者的窘境',
+        'book-1-tag': '商业',
+        'book-2-title': '史蒂夫·乔布斯传',
+        'book-2-tag': '传记',
+        'book-3-title': '芯片战争',
+        'book-3-tag': '科技',
+        'book-4-title': '设计中的设计',
+        'book-4-tag': '设计',
+        'book-4-author': '原研哉',
+        'book-5-title': '纳瓦尔宝典',
+        'book-5-tag': '思维',
+        'book-6-title': '人类简史',
+        'book-6-tag': '人文',
+        'book-7-title': '黑客与画家',
+        'book-7-tag': '技术',
+        'book-8-title': '乔布斯的魔力演讲',
+        'book-8-tag': '商业',
+        'books-more': '查看全部书籍 →',
+        'nav-podcasts': '播客',
+        'section-podcasts': '播客',
+        'pod-1-title': 'AI 硬件的 2025：谁在造，谁在用？',
+        'pod-1-host': '一派人',
+        'pod-2-title': '和产品经理聊聊端侧 AI 的未来',
+        'pod-2-host': '一派人',
+        'pod-3-title': '手机 OS 还有没有创新空间？',
+        'pod-3-host': '一派人',
+        'pod-4-title': '从蔚来到 Nothing：我的产品方法论',
+        'pod-4-host': '一派人',
+        'podcasts-more': '查看全部播客 →',
         'contact-wechat': '微信',
         'contact-jike': '即刻',
         'contact-douban': '豆瓣',
