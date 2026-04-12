@@ -863,7 +863,7 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      gap: 1rem;
+      gap: 0.4rem;
       overflow-y: auto;
       padding: 0.5rem 0;
       width: 85vw;
@@ -884,6 +884,13 @@
 
     .media-modal-body .gallery video {
       outline: none;
+    }
+
+    .media-modal-body .gallery video.portrait {
+      width: auto;
+      max-width: 40vw;
+      max-height: 65vh;
+      align-self: center;
     }
 
     /* scrollbar style */
@@ -1293,11 +1300,11 @@
             <span class="tag">Person</span>
           </div>
         </div>
-        <div class="project-item" onclick="openModal('AI 智能硬件概念设计', 'video', 'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/ai-hardware-concept.mp4')">
+        <div class="project-item" onclick="showHWDemoGallery()">
           <div class="project-num">03</div>
           <div class="project-info">
-            <h3 data-i18n="proj-hw-concept-title">AI 智能硬件概念设计</h3>
-            <p data-i18n="proj-hw-concept-desc">YY 的一些有意思的硬件产品概念设计。</p>
+            <h3 data-i18n="proj-hw-concept-title">AI 智能硬件 Demo</h3>
+            <p data-i18n="proj-hw-concept-desc">手搓的一些有意思的硬件产品概念设计。</p>
           </div>
           <div class="project-tags">
             <span class="tag">AI Hardware</span>
@@ -1793,8 +1800,8 @@
         'section-contact': 'Contact',
         'proj-nothing-title': 'Nothing OS 4.0 / 4.1',
         'proj-nothing-desc': 'Led the product planning and design of Nothing OS.',
-        'proj-hw-concept-title': 'AI Hardware Concept Design',
-        'proj-hw-concept-desc': 'Some fun conceptual designs for hardware products, just for fun.',
+        'proj-hw-concept-title': 'AI Hardware Demo',
+        'proj-hw-concept-desc': 'Some fun hands-on hardware product concept designs.',
         'proj-skyui-title': 'SkyUI 1.0 / 2.0',
         'proj-skyui-desc': 'Led product planning and design of each SkyUI version — building the purest system with the best car-phone connected experience.',
         'proj-2-title': 'Life Memoir Mini Program',
@@ -1894,8 +1901,8 @@
         'section-contact': '联系',
         'proj-nothing-title': 'Nothing OS 4.0 / 4.1',
         'proj-nothing-desc': '主导 Nothing OS 的产品规划设计。',
-        'proj-hw-concept-title': 'AI 智能硬件概念设计',
-        'proj-hw-concept-desc': 'YY 的一些有意思的硬件产品概念设计。',
+        'proj-hw-concept-title': 'AI 智能硬件 Demo',
+        'proj-hw-concept-desc': '手搓的一些有意思的硬件产品概念设计。',
         'proj-skyui-title': 'SkyUI 1.0 / 2.0',
         'proj-skyui-desc': '主导 SkyUI 各版本产品规划设计，打造最纯净、车机互联体验最好的系统。',
         'proj-2-title': '人生传记小程序',
@@ -2083,6 +2090,9 @@
             video.playsInline = true;
             video.preload = 'metadata';
             video.poster = src + '.png';
+            video.addEventListener('loadedmetadata', function() {
+              if (this.videoHeight > this.videoWidth) this.classList.add('portrait');
+            });
             gallery.appendChild(video);
           } else {
             const img = document.createElement('img');
@@ -2124,6 +2134,14 @@
         'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/7W3-JQAYC4Z2HxFP.mp4',
         'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/HDn3dk1WwAEXuAm.jpeg',
         'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/%E6%88%AA%E5%B1%8F2026-03-22%20%E4%B8%8B%E5%8D%8810.20.38.png'
+      ]);
+    }
+
+    function showHWDemoGallery() {
+      openModal('AI 智能硬件 Demo', 'gallery', [
+        'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/ai-hw-demo-2.mp4',
+        'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/ai-hw-demo-1.mp4',
+        'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/ai-hardware-concept.mp4'
       ]);
     }
 
