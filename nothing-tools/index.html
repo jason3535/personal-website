@@ -322,8 +322,7 @@
         });
 
       function showLogin() {
-        document.getElementById('auth-login-btn').href =
-          `${AUTH_WORKER}/login?redirect=${encodeURIComponent(location.pathname)}`;
+        document.getElementById('auth-login-btn').href = `${AUTH_WORKER}/login`;
       }
     })();
 
