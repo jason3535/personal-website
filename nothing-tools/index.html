@@ -37,6 +37,8 @@
     * { margin:0; padding:0; box-sizing:border-box; }
     html { font-size:15px; scroll-behavior:smooth; }
     body { font-family:'Inter','Noto Sans SC',-apple-system,sans-serif; background:var(--bg); color:var(--text); line-height:1.7; min-height:100vh; overflow-x:hidden; transition:background .4s,color .4s; }
+    body:not(.authed) main, body:not(.authed) footer { display:none; }
+    body:not(.authed) nav { display:none; }
     .mono { font-family:'JetBrains Mono',monospace; }
 
     body::after { content:''; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 1px,var(--scanline) 1px,var(--scanline) 2px); pointer-events:none; z-index:9999; }
@@ -103,6 +105,22 @@
     .fade-in { opacity:0; transform:translateY(12px); transition:opacity .5s,transform .5s; }
     .fade-in.visible { opacity:1; transform:translateY(0); }
 
+    /* Auth login screen */
+    .auth-gate { display:flex; align-items:center; justify-content:center; min-height:100vh; background:#000; }
+    body.authed .auth-gate { display:none; }
+    .auth-card { text-align:center; max-width:420px; width:90%; }
+    .auth-brand { margin-bottom:48px; font-family:'Helvetica Neue',Arial,sans-serif; font-size:22px; font-weight:700; color:#fff; letter-spacing:4px; }
+    .auth-box { background:rgba(255,255,255,0.06); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:40px 36px; }
+    .auth-title { font-size:22px; font-weight:600; color:#fff; margin-bottom:6px; }
+    .auth-desc { font-size:14px; color:rgba(255,255,255,0.5); line-height:1.5; margin-bottom:32px; }
+    .auth-btn { display:inline-flex; align-items:center; justify-content:center; width:100%; padding:14px 24px; background:#fff; color:#000; border:none; border-radius:12px; font-size:15px; font-weight:600; cursor:pointer; text-decoration:none; transition:all .2s; }
+    .auth-btn:hover { background:rgba(255,255,255,0.9); transform:translateY(-1px); }
+    .auth-divider { display:flex; align-items:center; gap:12px; margin:24px 0; font-size:12px; color:rgba(255,255,255,0.25); }
+    .auth-divider::before,.auth-divider::after { content:''; flex:1; height:1px; background:rgba(255,255,255,0.1); }
+    .auth-info { display:flex; align-items:flex-start; gap:10px; text-align:left; background:rgba(255,255,255,0.04); border-radius:10px; padding:14px 16px; }
+    .auth-info-text { font-size:12px; color:rgba(255,255,255,0.4); line-height:1.6; }
+    .auth-footer { margin-top:32px; font-size:11px; color:rgba(255,255,255,0.2); }
+
     @media (max-width:640px) {
       nav { padding:12px 20px; }
       .nav-links { gap:16px; margin-right:12px; }
@@ -119,6 +137,23 @@
   </style>
 </head>
 <body>
+
+  <div class="auth-gate" id="auth-gate">
+    <div class="auth-card">
+      <div class="auth-brand">NOTHING</div>
+      <div class="auth-box">
+        <div class="auth-title">Nothing Internal Tools</div>
+        <div class="auth-desc">Efficiency tools for the Nothing software team</div>
+        <a class="auth-btn" id="auth-login-btn" href="#">Continue with Lark</a>
+        <div class="auth-divider">INTERNAL ACCESS ONLY</div>
+        <div class="auth-info">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="rgba(255,255,255,0.3)"><path d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 3a1 1 0 110 2 1 1 0 010-2zm1.5 8h-3v-1h1V8H7V7h2v4h.5v1z"/></svg>
+          <div class="auth-info-text">Sign in with your Nothing Lark account. Contact the admin team if you need access.</div>
+        </div>
+      </div>
+      <div class="auth-footer">Nothing Technology &middot; Internal Tools</div>
+    </div>
+  </div>
 
   <nav>
     <a href="#" class="nav-logo">Jason.Tools</a>
@@ -250,6 +285,48 @@
   </footer>
 
   <script>
+    // --- Auth ---
+    const AUTH_WORKER = 'https://nothing-tools-auth.992978142.workers.dev';
+
+    (function initAuth() {
+      // Check for token in URL hash (callback from Worker)
+      const hash = location.hash;
+      if (hash.startsWith('#token=')) {
+        const token = hash.slice(7);
+        localStorage.setItem('nt_token', token);
+        history.replaceState(null, '', location.pathname);
+      }
+
+      const token = localStorage.getItem('nt_token');
+      if (!token) {
+        showLogin();
+        return;
+      }
+
+      // Verify token with Worker
+      fetch(`${AUTH_WORKER}/verify`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      })
+        .then(r => r.json())
+        .then(data => {
+          if (data.valid) {
+            document.body.classList.add('authed');
+          } else {
+            localStorage.removeItem('nt_token');
+            showLogin();
+          }
+        })
+        .catch(() => {
+          // If worker is unreachable, still allow cached token (offline fallback)
+          document.body.classList.add('authed');
+        });
+
+      function showLogin() {
+        document.getElementById('auth-login-btn').href =
+          `${AUTH_WORKER}/login?redirect=${encodeURIComponent(location.pathname)}`;
+      }
+    })();
+
     const i18n = {
       zh: {
         'nav.tools':'Tools','hero.tag':'Nothing Technology // Internal Tools',
