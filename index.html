@@ -2222,5 +2222,15 @@
       });
     });
   </script>
+<script>
+(function(){try{
+var a='';try{a=localStorage.aid||'';if(!a){a=[].map.call(crypto.getRandomValues(new Uint8Array(10)),function(x){return x.toString(16).padStart(2,'0')}).join('');localStorage.aid=a;}}catch(e){}
+var dev=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)?'mobile':'desktop';
+var ref='';try{ref=document.referrer?new URL(document.referrer).host:'';}catch(e){}
+var body=JSON.stringify({type:'view',path:'home:'+location.pathname+location.search,ua:dev,ref:ref,sid:'',aid:a});
+if(navigator.sendBeacon)navigator.sendBeacon('https://stats.jasonlin.tech',new Blob([body],{type:'text/plain'}));
+else fetch('https://stats.jasonlin.tech',{method:'POST',headers:{'Content-Type':'text/plain'},body:body,keepalive:true});
+}catch(e){}})();
+</script>
 </body>
 </html>
