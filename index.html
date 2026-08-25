@@ -1293,8 +1293,20 @@
         <div class="section-line"></div>
       </div>
       <div class="project-list">
-        <div class="project-item" onclick="window.open('https://aipodcast.jasonlin.tech', '_blank')">
+        <div class="project-item" onclick="showNothingOS5Gallery()">
           <div class="project-num">01</div>
+          <div class="project-info">
+            <h3 data-i18n="proj-nos5-title">Nothing OS 5.0</h3>
+            <p data-i18n="proj-nos5-desc">主导 Nothing OS 5.0 的产品规划与设计。</p>
+          </div>
+          <div class="project-tags">
+            <span class="tag">Nothing</span>
+            <span class="tag">OS Design</span>
+            <span class="tag">Product Lead</span>
+          </div>
+        </div>
+        <div class="project-item" onclick="window.open('https://aipodcast.jasonlin.tech', '_blank')">
+          <div class="project-num">02</div>
           <div class="project-info">
             <h3 data-i18n="proj-aipod-title">AI Podcast 双语阅读站</h3>
             <p data-i18n="proj-aipod-desc">收录 AI 领域重要人物的播客访谈，提供双语全文、核心观点提炼与 AI 问答，用读的方式高效吸收访谈内容。</p>
@@ -1306,7 +1318,7 @@
           </div>
         </div>
         <div class="project-item" onclick="showHWDemoGallery()">
-          <div class="project-num">02</div>
+          <div class="project-num">03</div>
           <div class="project-info">
             <h3 data-i18n="proj-hw-concept-title">AI 智能硬件 Demo</h3>
             <p data-i18n="proj-hw-concept-desc">手搓的一些有意思的硬件产品概念设计。</p>
@@ -1318,7 +1330,7 @@
           </div>
         </div>
         <div class="project-item" onclick="showNothingGallery()">
-          <div class="project-num">03</div>
+          <div class="project-num">04</div>
           <div class="project-info">
             <h3 data-i18n="proj-nothing-title">Nothing OS 4.1</h3>
             <p data-i18n="proj-nothing-desc">主导 Nothing OS 的产品规划设计。</p>
@@ -1330,7 +1342,7 @@
           </div>
         </div>
         <div class="project-item" onclick="openModal('人生传记小程序', 'qr', 'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/qr-memoir.jpg')">
-          <div class="project-num">04</div>
+          <div class="project-num">05</div>
           <div class="project-info">
             <h3 data-i18n="proj-2-title">人生传记小程序</h3>
             <p data-i18n="proj-2-desc">AI 驱动的写回忆录的小程序 Agent，通过对话引导用户回忆人生故事，智能生成章节与篇章。</p>
@@ -1342,7 +1354,7 @@
           </div>
         </div>
         <div class="project-item" onclick="showSkyUIGallery()">
-          <div class="project-num">05</div>
+          <div class="project-num">06</div>
           <div class="project-info">
             <h3 data-i18n="proj-skyui-title">SkyUI 1.0 / 2.0</h3>
             <p data-i18n="proj-skyui-desc">主导 SkyUI 各版本产品规划设计，打造最纯净、车机互联体验最好的系统。</p>
@@ -1829,6 +1841,8 @@
         'section-contact': 'Contact',
         'proj-aipod-title': 'AI Podcast Bilingual Reader',
         'proj-aipod-desc': 'A reading site for podcast interviews with key figures in AI — bilingual full transcripts, distilled key takeaways, and grounded AI Q&A, so you can absorb interviews by reading.',
+'proj-nos5-title': 'Nothing OS 5.0',
+        'proj-nos5-desc': '主导 Nothing OS 5.0 的产品规划与设计。',
         'proj-nothing-title': 'Nothing OS 4.1',
         'proj-nothing-desc': 'Led the product planning and design of Nothing OS.',
         'proj-hw-concept-title': 'AI Hardware Demo',
@@ -1932,6 +1946,8 @@
         'section-contact': '联系',
         'proj-aipod-title': 'AI Podcast 双语阅读站',
         'proj-aipod-desc': '收录 AI 领域重要人物的播客访谈，提供双语全文、核心观点提炼与 AI 问答，用读的方式高效吸收访谈内容。',
+'proj-nos5-title': 'Nothing OS 5.0',
+        'proj-nos5-desc': 'Led product planning and design for Nothing OS 5.0.',
         'proj-nothing-title': 'Nothing OS 4.1',
         'proj-nothing-desc': '主导 Nothing OS 的产品规划设计。',
         'proj-hw-concept-title': 'AI 智能硬件 Demo',
@@ -2160,6 +2176,12 @@
     }
 
     // ── Project Galleries ──
+    function showNothingOS5Gallery() {
+      openModal('Nothing OS 5.0', 'gallery', [
+        'media/nothing-os5.mp4'
+      ]);
+    }
+
     function showNothingGallery() {
       openModal('Nothing OS 4.1', 'gallery', [
         'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/eN99hRlpvmr7kpSV.mp4',
