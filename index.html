@@ -886,7 +886,7 @@
       gap: 8px;
     }
 
-    /* 手机上视频不进瀑布流,单独通栏(半宽视频太小没法看) */
+    /* 单列时视频通栏(竖版限高,避免一屏放不下) */
     .media-modal-body .gallery > video {
       width: 100%;
       height: auto;
@@ -2183,32 +2183,52 @@
       modal.classList.add('active');
     }
 
-    // ── 瀑布流图集:先取每项宽高比,再按「最矮列优先」放,宽图/窄图/视频混排 ──
+    // ── 瀑布流图集:按可用宽度决定列数(每列 ≥300px → 窄屏 1 列 / 中等 2 列 / 宽屏 3 列),
+    //    每项按宽高比放进当前最矮的一列;窗口尺寸变化时重排。1 列时视频通栏并限高。 ──
     function buildMasonry(sources, title) {
       const gallery = document.createElement('div');
       gallery.className = 'gallery';
-      const mobile = window.innerWidth <= 768;
       const isVid = src => /\.(mp4|mov|webm)$/i.test(src);
-      // 手机:视频通栏放在图片瀑布流下面;桌面:视频也进瀑布流
-      const inFlow = mobile ? sources.filter(x => !isVid(x)) : sources;
-      const n = inFlow.length;
-      const cols = n <= 1 ? 1 : mobile ? 2 : (n <= 4 ? 2 : 3);
-      const colsWrap = document.createElement('div');
-      colsWrap.className = 'gallery-cols';
-      if (n) gallery.appendChild(colsWrap);
-      const colEls = Array.from({ length: cols }, () => {
-        const c = document.createElement('div');
-        c.className = 'gallery-col';
-        colsWrap.appendChild(c);
-        return c;
-      });
-      const heights = new Array(cols).fill(0);
+      let items = null;
+
+      const colCount = () => {
+        const w = gallery.clientWidth || Math.min(window.innerWidth * 0.85, 1200);
+        return Math.max(1, Math.min(3, Math.floor(w / 300), sources.length));
+      };
+
+      const layout = () => {
+        if (!items) return;
+        const cols = colCount();
+        if (gallery._cols === cols) return;
+        gallery._cols = cols;
+        gallery.innerHTML = '';
+        const colsWrap = document.createElement('div');
+        colsWrap.className = 'gallery-cols';
+        const colEls = Array.from({ length: cols }, () => {
+          const c = document.createElement('div');
+          c.className = 'gallery-col';
+          colsWrap.appendChild(c);
+          return c;
+        });
+        const heights = new Array(cols).fill(0);
+        const full = [];
+        items.forEach(({ el, ratio }) => {
+          el.classList.toggle('portrait', ratio > 1);
+          if (cols === 1 && el.tagName === 'VIDEO') { full.push(el); return; }   // 单列:视频通栏限高
+          let k = 0;
+          for (let i = 1; i < cols; i++) if (heights[i] < heights[k] - 0.01) k = i;
+          colEls[k].appendChild(el);
+          heights[k] += ratio;
+        });
+        if (colEls.some(c => c.children.length)) gallery.appendChild(colsWrap);
+        full.forEach(v => gallery.appendChild(v));
+      };
+      gallery._relayout = () => { gallery._cols = null; layout(); };
 
       const measure = src => new Promise(resolve => {
-        const isVideo = /\.(mp4|mov|webm)$/i.test(src);
         let done = false;
         const finish = (el, ratio) => { if (!done) { done = true; resolve({ el, ratio }); } };
-        if (isVideo) {
+        if (isVid(src)) {
           const v = document.createElement('video');
           v.src = src;
           v.controls = true;
@@ -2229,21 +2249,18 @@
         }
       });
 
-      Promise.all(sources.map(measure)).then(items => {
-        items.forEach(({ el, ratio }) => {
-          if (mobile && el.tagName === 'VIDEO') {        // 通栏
-            if (ratio > 1) el.classList.add('portrait');
-            gallery.appendChild(el);
-            return;
-          }
-          let k = 0;
-          for (let i = 1; i < cols; i++) if (heights[i] < heights[k] - 0.01) k = i;
-          colEls[k].appendChild(el);
-          heights[k] += ratio;
-        });
-      });
+      Promise.all(sources.map(measure)).then(list => { items = list; layout(); });
       return gallery;
     }
+
+    let _galleryResizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(_galleryResizeTimer);
+      _galleryResizeTimer = setTimeout(() => {
+        const g = document.querySelector('#mediaModal.active .gallery');
+        if (g && g._relayout) g._relayout();
+      }, 150);
+    });
 
     function zoomImage(src, title) {
       const wrap = document.createElement('div');
