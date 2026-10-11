@@ -357,6 +357,12 @@
     (function() { const saved = localStorage.getItem('theme'); if (saved === 'light') { document.documentElement.setAttribute('data-theme','light'); document.getElementById('themeToggle').innerHTML = '☽'; document.getElementById('themeToggle').classList.add('active'); } })();
     function toggleLang() {
       currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      // 顶部导航同步切换(与 writing.html 一致)
+      const NAV = {'关于':'About','项目':'Projects','文章':'Writing','书籍':'Books','播客':'Podcasts','联系':'Contact'};
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        if (!a.dataset.zh) a.dataset.zh = a.textContent.trim();
+        a.textContent = currentLang === 'en' ? (NAV[a.dataset.zh] || a.dataset.zh) : a.dataset.zh;
+      });
       document.getElementById('langToggle').textContent = currentLang === 'zh' ? 'EN' : '\u4E2D';
       document.getElementById('langToggle').classList.toggle('active', currentLang === 'en');
       document.getElementById('pageTitle').textContent = currentLang === 'en' ? 'Books' : '\u4E66\u7C4D';
