@@ -872,43 +872,79 @@
     .media-modal-body .gallery {
       display: flex;
       flex-direction: column;
-      align-items: stretch;
-      gap: 0.2rem;
+      gap: 8px;
       overflow-y: auto;
       padding: 0.5rem 0;
       width: 85vw;
-      max-width: 85vw;
+      max-width: 1200px;
       max-height: 72vh;
+    }
+
+    .media-modal-body .gallery .gallery-cols {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    /* 手机上视频不进瀑布流,单独通栏(半宽视频太小没法看) */
+    .media-modal-body .gallery > video {
+      width: 100%;
+      height: auto;
+    }
+    .media-modal-body .gallery > video.portrait {
+      width: auto;
+      max-width: 100%;
+      max-height: 70vh;
+      align-self: center;
+    }
+
+    .media-modal-body .gallery .gallery-col {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .media-modal-body .gallery img,
     .media-modal-body .gallery video {
-      width: 85vw;
-      max-width: 85vw;
+      width: 100%;
       height: auto;
-      flex-shrink: 0;
+      display: block;
       background: #000;
       border: none;
-      display: block;
-    }
-
-    .media-modal-body .gallery video {
       outline: none;
     }
 
-    .media-modal-body .gallery video.portrait,
-    .media-modal-body .gallery img.portrait {
-      width: auto;
-      max-width: 40vw;
-      max-height: 65vh;
-      align-self: center;
+    .media-modal-body .gallery img {
+      cursor: zoom-in;
+      transition: opacity 0.2s;
     }
+    .media-modal-body .gallery img:hover { opacity: 0.88; }
+
     @media (max-width: 768px) {
-      .media-modal-body .gallery video.portrait,
-      .media-modal-body .gallery img.portrait {
-        max-width: 85vw;
-        max-height: 70vh;
-      }
+      .media-modal-body .gallery,
+      .media-modal-body .gallery .gallery-cols,
+      .media-modal-body .gallery .gallery-col { gap: 6px; }
+    }
+
+    /* 点图放大 */
+    .gallery-zoom {
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.92);
+      cursor: zoom-out;
+    }
+    .gallery-zoom img {
+      max-width: 94vw;
+      max-height: 92vh;
+      width: auto;
+      height: auto;
+      display: block;
     }
 
     /* scrollbar style */
@@ -1306,20 +1342,8 @@
             <span class="tag">Product Lead</span>
           </div>
         </div>
-        <div class="project-item" onclick="window.open('https://aipodcast.jasonlin.tech', '_blank')">
-          <div class="project-num">02</div>
-          <div class="project-info">
-            <h3 data-i18n="proj-aipod-title">AI Podcast 双语阅读站</h3>
-            <p data-i18n="proj-aipod-desc">收录 AI 领域重要人物的播客访谈，提供双语全文、核心观点提炼与 AI 问答，用读的方式高效吸收访谈内容。</p>
-          </div>
-          <div class="project-tags">
-            <span class="tag">AI Agent</span>
-            <span class="tag">Web</span>
-            <span class="tag">Person</span>
-          </div>
-        </div>
         <div class="project-item" onclick="showHWDemoGallery()">
-          <div class="project-num">03</div>
+          <div class="project-num">02</div>
           <div class="project-info">
             <h3 data-i18n="proj-hw-concept-title">AI 视觉感知手表</h3>
             <p data-i18n="proj-hw-concept-desc">Vision Chrono：能看见环境的墨水屏手表原型，ESP32-S3 + 摄像头，从概念渲染做到 3D 打印外壳与可佩戴整机。</p>
@@ -1327,6 +1351,18 @@
           <div class="project-tags">
             <span class="tag">AI Hardware</span>
             <span class="tag">Wearable</span>
+            <span class="tag">Person</span>
+          </div>
+        </div>
+        <div class="project-item" onclick="window.open('https://aipodcast.jasonlin.tech', '_blank')">
+          <div class="project-num">03</div>
+          <div class="project-info">
+            <h3 data-i18n="proj-aipod-title">AI Podcast 双语阅读站</h3>
+            <p data-i18n="proj-aipod-desc">收录 AI 领域重要人物的播客访谈，提供双语全文、核心观点提炼与 AI 问答，用读的方式高效吸收访谈内容。</p>
+          </div>
+          <div class="project-tags">
+            <span class="tag">AI Agent</span>
+            <span class="tag">Web</span>
             <span class="tag">Person</span>
           </div>
         </div>
@@ -1368,6 +1404,18 @@
       </div>
       <div class="writing-source" data-i18n="writing-source">选自微信公众号「一派人」</div>
       <div class="writing-list">
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/MpgaAFGz0UOMIkZO7vCH6g" target="_blank">
+          <span class="writing-date">2026.10</span>
+          <span class="writing-title" data-i18n="article-12-title">给自己做了一款带视觉感知的手表</span>
+          <span class="tag" data-i18n="tag-hardware">智能硬件</span>
+          <span class="writing-arrow">↗</span>
+        </a>
+        <a class="writing-item" href="https://mp.weixin.qq.com/s/fFK-xilORkObta6mVRBMzA" target="_blank">
+          <span class="writing-date">2026.08</span>
+          <span class="writing-title" data-i18n="article-11-title">我做了个可以读的海外 AI 播客网页</span>
+          <span class="tag" data-i18n="tag-ai">AI</span>
+          <span class="writing-arrow">↗</span>
+        </a>
         <a class="writing-item" href="https://mp.weixin.qq.com/s/4jMspTxkMRLVDdzIAoPxsQ" target="_blank">
           <span class="writing-date">2025.12</span>
           <span class="writing-title" data-i18n="article-5-title">站在 2025 年看 AI 智能硬件</span>
@@ -1875,7 +1923,10 @@
         'article-8-title': 'The History of Mobile OS',
         'article-9-title': 'Transparent Design',
         'article-10-title': 'Colorful Design',
+        'article-11-title': 'I Built a Readable Site for Overseas AI Podcasts',
+        'article-12-title': 'I Built Myself a Watch That Can See',
         'tag-hardware': 'AI Hardware',
+        'tag-ai': 'AI',
         'tag-tesla': 'Tesla',
         'tag-software': 'Software',
         'tag-id': 'Industrial Design',
@@ -1978,7 +2029,10 @@
         'article-8-title': '移动设备 OS 的前世今生',
         'article-9-title': '透明化设计',
         'article-10-title': '彩色化设计',
+        'article-11-title': '我做了个可以读的海外 AI 播客网页',
+        'article-12-title': '给自己做了一款带视觉感知的手表',
         'tag-hardware': '智能硬件',
+        'tag-ai': 'AI',
         'tag-tesla': '特斯拉',
         'tag-software': '软件',
         'tag-id': '工业设计',
@@ -2113,33 +2167,7 @@
         img.className = 'photo';
         body.appendChild(img);
       } else if (type === 'photos' || type === 'gallery') {
-        const gallery = document.createElement('div');
-        gallery.className = 'gallery';
-        sources.forEach(src => {
-          const isVideo = /\.(mp4|mov|webm)$/i.test(src);
-          if (isVideo) {
-            const video = document.createElement('video');
-            video.src = src;
-            video.controls = true;
-            video.playsInline = true;
-            video.preload = 'metadata';
-            video.poster = src + '.png';
-            video.addEventListener('loadedmetadata', function() {
-              if (this.videoHeight > this.videoWidth) this.classList.add('portrait');
-            });
-            gallery.appendChild(video);
-          } else {
-            const img = document.createElement('img');
-            img.src = src;
-            img.alt = title;
-            img.loading = 'lazy';
-            img.addEventListener('load', function() {
-              if (this.naturalHeight > this.naturalWidth) this.classList.add('portrait');
-            });
-            gallery.appendChild(img);
-          }
-        });
-        body.appendChild(gallery);
+        body.appendChild(buildMasonry(sources, title));
       } else if (type === 'video') {
         const video = document.createElement('video');
         video.src = sources;
@@ -2153,6 +2181,79 @@
       }
 
       modal.classList.add('active');
+    }
+
+    // ── 瀑布流图集:先取每项宽高比,再按「最矮列优先」放,宽图/窄图/视频混排 ──
+    function buildMasonry(sources, title) {
+      const gallery = document.createElement('div');
+      gallery.className = 'gallery';
+      const mobile = window.innerWidth <= 768;
+      const isVid = src => /\.(mp4|mov|webm)$/i.test(src);
+      // 手机:视频通栏放在图片瀑布流下面;桌面:视频也进瀑布流
+      const inFlow = mobile ? sources.filter(x => !isVid(x)) : sources;
+      const n = inFlow.length;
+      const cols = n <= 1 ? 1 : mobile ? 2 : (n <= 4 ? 2 : 3);
+      const colsWrap = document.createElement('div');
+      colsWrap.className = 'gallery-cols';
+      if (n) gallery.appendChild(colsWrap);
+      const colEls = Array.from({ length: cols }, () => {
+        const c = document.createElement('div');
+        c.className = 'gallery-col';
+        colsWrap.appendChild(c);
+        return c;
+      });
+      const heights = new Array(cols).fill(0);
+
+      const measure = src => new Promise(resolve => {
+        const isVideo = /\.(mp4|mov|webm)$/i.test(src);
+        let done = false;
+        const finish = (el, ratio) => { if (!done) { done = true; resolve({ el, ratio }); } };
+        if (isVideo) {
+          const v = document.createElement('video');
+          v.src = src;
+          v.controls = true;
+          v.playsInline = true;
+          v.preload = 'metadata';
+          v.poster = src + '.png';
+          v.addEventListener('loadedmetadata', () => finish(v, v.videoHeight / v.videoWidth));
+          setTimeout(() => finish(v, 16 / 9), 2500);   // 元数据没回来就按竖版估
+        } else {
+          const img = document.createElement('img');
+          img.alt = title;
+          img.decoding = 'async';
+          img.addEventListener('load', () => finish(img, img.naturalHeight / img.naturalWidth));
+          img.addEventListener('error', () => finish(img, 0.75));
+          img.addEventListener('click', () => zoomImage(img.src, title));
+          img.src = src;
+          setTimeout(() => finish(img, 0.75), 2500);
+        }
+      });
+
+      Promise.all(sources.map(measure)).then(items => {
+        items.forEach(({ el, ratio }) => {
+          if (mobile && el.tagName === 'VIDEO') {        // 通栏
+            if (ratio > 1) el.classList.add('portrait');
+            gallery.appendChild(el);
+            return;
+          }
+          let k = 0;
+          for (let i = 1; i < cols; i++) if (heights[i] < heights[k] - 0.01) k = i;
+          colEls[k].appendChild(el);
+          heights[k] += ratio;
+        });
+      });
+      return gallery;
+    }
+
+    function zoomImage(src, title) {
+      const wrap = document.createElement('div');
+      wrap.className = 'gallery-zoom';
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = title;
+      wrap.appendChild(img);
+      wrap.addEventListener('click', e => { e.stopPropagation(); wrap.remove(); });
+      document.body.appendChild(wrap);
     }
 
     function closeModal(e) {
@@ -2210,6 +2311,8 @@
     // ESC to close modal
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        const z = document.querySelector('.gallery-zoom');
+        if (z) { z.remove(); return; }
         const modal = document.getElementById('mediaModal');
         modal.querySelectorAll('video').forEach(v => v.pause());
         modal.classList.remove('active');
