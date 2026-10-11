@@ -896,11 +896,19 @@
       outline: none;
     }
 
-    .media-modal-body .gallery video.portrait {
+    .media-modal-body .gallery video.portrait,
+    .media-modal-body .gallery img.portrait {
       width: auto;
       max-width: 40vw;
       max-height: 65vh;
       align-self: center;
+    }
+    @media (max-width: 768px) {
+      .media-modal-body .gallery video.portrait,
+      .media-modal-body .gallery img.portrait {
+        max-width: 85vw;
+        max-height: 70vh;
+      }
     }
 
     /* scrollbar style */
@@ -1270,7 +1278,7 @@
           <span class="journey-node active">
             <span class="journey-year">2025</span>
             <span class="journey-co">Nothing</span>
-            <span class="journey-role tag" data-i18n="journey-role-nothing">NothingOS 产品负责人</span>
+            <span class="journey-role tag" data-i18n="journey-role-nothing">Nothing 软件产品负责人</span>
           </span>
         </div>
       </div>
@@ -1313,12 +1321,12 @@
         <div class="project-item" onclick="showHWDemoGallery()">
           <div class="project-num">03</div>
           <div class="project-info">
-            <h3 data-i18n="proj-hw-concept-title">AI 智能硬件 Demo</h3>
-            <p data-i18n="proj-hw-concept-desc">手搓的一些有意思的硬件产品概念设计。</p>
+            <h3 data-i18n="proj-hw-concept-title">AI 视觉感知手表</h3>
+            <p data-i18n="proj-hw-concept-desc">Vision Chrono：能看见环境的墨水屏手表原型，ESP32-S3 + 摄像头，从概念渲染做到 3D 打印外壳与可佩戴整机。</p>
           </div>
           <div class="project-tags">
             <span class="tag">AI Hardware</span>
-            <span class="tag">Design</span>
+            <span class="tag">Wearable</span>
             <span class="tag">Person</span>
           </div>
         </div>
@@ -1334,20 +1342,8 @@
             <span class="tag">Product Lead</span>
           </div>
         </div>
-        <div class="project-item" onclick="openModal('人生传记小程序', 'qr', 'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/qr-memoir.jpg')">
-          <div class="project-num">05</div>
-          <div class="project-info">
-            <h3 data-i18n="proj-2-title">人生传记小程序</h3>
-            <p data-i18n="proj-2-desc">AI 驱动的写回忆录的小程序 Agent，通过对话引导用户回忆人生故事，智能生成章节与篇章。</p>
-          </div>
-          <div class="project-tags">
-            <span class="tag">Mini Program</span>
-            <span class="tag">AI Agent</span>
-            <span class="tag">Person</span>
-          </div>
-        </div>
         <div class="project-item" onclick="showSkyUIGallery()">
-          <div class="project-num">06</div>
+          <div class="project-num">05</div>
           <div class="project-info">
             <h3 data-i18n="proj-skyui-title">SkyUI 1.0 / 2.0</h3>
             <p data-i18n="proj-skyui-desc">主导 SkyUI 各版本产品规划设计，打造最纯净、车机互联体验最好的系统。</p>
@@ -1838,12 +1834,10 @@
         'proj-nos5-desc': 'Led the product side of Nothing OS 5.0.',
         'proj-nothing-title': 'Nothing OS 4.1',
         'proj-nothing-desc': 'Led the product side of Nothing OS.',
-        'proj-hw-concept-title': 'AI Hardware Demo',
-        'proj-hw-concept-desc': 'Some fun hands-on hardware product concept designs.',
+        'proj-hw-concept-title': 'AI Vision-Aware Watch',
+        'proj-hw-concept-desc': 'Vision Chrono: an e-ink watch prototype that can see its surroundings — ESP32-S3 + camera, taken from concept render to a 3D-printed shell and a wearable build.',
         'proj-skyui-title': 'SkyUI 1.0 / 2.0',
         'proj-skyui-desc': 'Led product planning and design of each SkyUI version — building the purest system with the best car-phone connected experience.',
-        'proj-2-title': 'Life Memoir Mini Program',
-        'proj-2-desc': 'An AI-powered memoir-writing agent as a mini program. Guides users through conversation to recall life stories and intelligently generates chapters.',
         'skill-1-name': 'Product',
         'skill-1-desc': '10+ years in software product, experiencing the full arc from mobile internet to the AI era. Passionate about hardware — have built some hardware projects hands-on.',
         'skill-2-name': 'Design',
@@ -1853,7 +1847,7 @@
         'exp-2-company': 'NIO',
         'exp-4-company': 'Meitu',
         'exp-5-company': 'Xiamen University',
-        'exp-1-role': 'NothingOS Product Lead',
+        'exp-1-role': 'Nothing Software Product Lead',
         'exp-1-desc': 'Leading NothingOS product direction and experience definition.',
         'exp-2-role': 'SkyUI Product Lead, NIO Phone',
         'exp-2-desc': 'Led NIO Phone SkyUI product planning and experience design, building the mobile experience for the car-phone connected ecosystem from 0 to 1.',
@@ -1865,7 +1859,7 @@
         'journey-role-meitu': 'MEIOS & Commercialization',
         'journey-role-oppo': 'Multimedia Product Lead',
         'journey-role-nio': 'SkyUI Product Lead',
-        'journey-role-nothing': 'NothingOS Product Lead',
+        'journey-role-nothing': 'Nothing Software Product Lead',
         'nav-writing': 'Writing',
         'nav-books': 'Books',
         'section-writing': 'Writing',
@@ -1943,12 +1937,10 @@
         'proj-nos5-desc': '主导 Nothing OS 5.0 的产品部分。',
         'proj-nothing-title': 'Nothing OS 4.1',
         'proj-nothing-desc': '主导 Nothing OS 的产品部分。',
-        'proj-hw-concept-title': 'AI 智能硬件 Demo',
-        'proj-hw-concept-desc': '手搓的一些有意思的硬件产品概念设计。',
+        'proj-hw-concept-title': 'AI 视觉感知手表',
+        'proj-hw-concept-desc': 'Vision Chrono：能看见环境的墨水屏手表原型，ESP32-S3 + 摄像头，从概念渲染做到 3D 打印外壳与可佩戴整机。',
         'proj-skyui-title': 'SkyUI 1.0 / 2.0',
         'proj-skyui-desc': '主导 SkyUI 各版本产品规划设计，打造最纯净、车机互联体验最好的系统。',
-        'proj-2-title': '人生传记小程序',
-        'proj-2-desc': 'AI 驱动的写回忆录的小程序 Agent，通过对话引导用户回忆人生故事，智能生成章节与篇章。',
         'skill-1-name': 'Product',
         'skill-1-desc': '10+ 年软件产品经验，经历从移动互联网到 AI 时代完整周期。热爱硬件，动手做过一些硬件项目。',
         'skill-2-name': 'Design',
@@ -1958,7 +1950,7 @@
         'exp-2-company': '蔚来',
         'exp-4-company': '美图',
         'exp-5-company': '厦门大学',
-        'exp-1-role': 'NothingOS 产品负责人',
+        'exp-1-role': 'Nothing 软件产品负责人',
         'exp-1-desc': '负责 NothingOS 产品方向与体验定义。',
         'exp-2-role': '手机 SkyUI 产品负责人',
         'exp-2-desc': '负责蔚来手机 SkyUI 产品规划与体验设计，打造原生车手互联生态的系统级体验。',
@@ -1970,7 +1962,7 @@
         'journey-role-meitu': 'MEIOS & 商业化',
         'journey-role-oppo': 'ColorOS 多媒体产品负责人',
         'journey-role-nio': 'SkyUI 产品负责人',
-        'journey-role-nothing': 'NothingOS 产品负责人',
+        'journey-role-nothing': 'Nothing 软件产品负责人',
         'nav-writing': '文章',
         'nav-books': '书籍',
         'section-writing': '文章',
@@ -2140,6 +2132,10 @@
             const img = document.createElement('img');
             img.src = src;
             img.alt = title;
+            img.loading = 'lazy';
+            img.addEventListener('load', function() {
+              if (this.naturalHeight > this.naturalWidth) this.classList.add('portrait');
+            });
             gallery.appendChild(img);
           }
         });
@@ -2186,9 +2182,12 @@
     }
 
     function showHWDemoGallery() {
-      openModal('AI 智能硬件 Demo', 'gallery', [
-        'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/ai-hw-demo-2.mp4',
-        'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/ai-hw-demo-1.mp4',
+      openModal('AI 视觉感知手表 · Vision Chrono', 'gallery', [
+        'media/vision-chrono/vc-01.jpg',
+        'media/vision-chrono/vc-02.jpg',
+        'media/vision-chrono/vc-03.jpg',
+        'media/vision-chrono/vc-04.jpg',
+        'media/vision-chrono/vc-05.jpg',
         'https://jasonlin-website.oss-cn-shenzhen.aliyuncs.com/media/ai-hardware-concept.mp4'
       ]);
     }
